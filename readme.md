@@ -22,6 +22,7 @@
 
 ### Proyecto basado en
 https://medium.com/@cvallejo/autenticaci%C3%B3n-de-usuarios-y-roles-en-laravel-5-5-97ab59552d91
+https://medium.com/@cvallejo/roles-usuarios-laravel-2e1c6123ad
 https://github.com/karoys/laravel-native-roles-auth
 
 ---
