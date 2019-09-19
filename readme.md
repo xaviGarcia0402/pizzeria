@@ -29,10 +29,7 @@ https://github.com/karoys/laravel-native-roles-auth
 
 ### Comandos usados para la creación del proyecto
 ```
-# Creación del proyecto
 $ composer create-project --prefer-dist laravel/laravel laravel6-usuarios
-
-# Instalación de los componentes de autentificación
 $ composer require laravel/ui
 $ php artisan ui vue --auth
 $ npm install && npm run dev
