@@ -30,4 +30,13 @@ $ composer require laravel/ui
 $ php artisan ui vue --auth
 $ npm install && npm run dev
 $ php artisan migrate
+$ php artisan make:model Role -m
+$ php artisan make:migration create_role_user_table
+$ php artisan make:seeder RoleTableSeeder
+$ php artisan migrate:refresh --seed
 ```
+
+### Proyecto basado en
+https://medium.com/@cvallejo/autenticaci%C3%B3n-de-usuarios-y-roles-en-laravel-5-5-97ab59552d91
+
+https://github.com/karoys/laravel-native-roles-auth
