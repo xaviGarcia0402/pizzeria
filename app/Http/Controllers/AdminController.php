@@ -8,10 +8,10 @@ class AdminController extends Controller{
 
   public function __construct(){
     $this->middleware('auth');
+    $this->middleware('role:admin');
   }
 
   public function index(Request $request){
-    $request->user()->authorizeRoles(['admin']);
     return view('admin.usuarios');
   }
 
