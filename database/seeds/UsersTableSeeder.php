@@ -12,6 +12,8 @@ class UsersTableSeeder extends Seeder
      */
     public function run()
     {
+      DB::table('users')->delete();
+
       $user = new User();
       $user->name = 'User';
       $user->email = 'user@example.com';
