@@ -12,15 +12,15 @@ class User extends Authenticatable
     use Notifiable;
 
     public function authorizeRoles($roles){
-      if ($this->hasAnyRole($roles)) { return true; }
-      abort(401, 'Esta acción no está autorizada.');
+      abort_unless($this->hasAnyRole($roles), 401);
+      return true;
     }// /authorizeRoles
 
 
     public function hasAnyRole($roles){
       if (is_array($roles)) {
         foreach ($roles as $role) {
-          if ($this->hasRole($role)) { return true; }
+          if ($this->hasRole($role)){ return true; }
         }
       }
       else {
@@ -31,7 +31,7 @@ class User extends Authenticatable
 
 
     public function hasRole($role){
-      if ($this->roles()->where('name', $role)->first()) { return true; }
+      if($this->roles()->where('name', $role)->first()) { return true; }
       return false;
     }// /hasRole
 
