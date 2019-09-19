@@ -20,7 +20,14 @@
 * `php artisan db:seed`
 * `php artisan serve` crear servior en http://localhost:8080/
 
-## Creación del proyecto
+
+### Proyecto basado en
+https://medium.com/@cvallejo/autenticaci%C3%B3n-de-usuarios-y-roles-en-laravel-5-5-97ab59552d91
+https://github.com/karoys/laravel-native-roles-auth
+
+---
+
+### Comandos usados para la creación del proyecto
 ```
 # Creación del proyecto
 $ composer create-project --prefer-dist laravel/laravel laravel6-usuarios
@@ -35,8 +42,3 @@ $ php artisan make:migration create_role_user_table
 $ php artisan make:seeder RoleTableSeeder
 $ php artisan migrate:refresh --seed
 ```
-
-### Proyecto basado en
-https://medium.com/@cvallejo/autenticaci%C3%B3n-de-usuarios-y-roles-en-laravel-5-5-97ab59552d91
-
-https://github.com/karoys/laravel-native-roles-auth
