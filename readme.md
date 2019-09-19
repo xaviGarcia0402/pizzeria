@@ -6,7 +6,6 @@
 * Composer
 * Git
 * MySQL
-* Node.js
 
 ## Instalación
 
