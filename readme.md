@@ -20,6 +20,11 @@
 * `php artisan serve` crear servior en http://localhost:8080/
 
 
+## Por hacer
+* Crear campo active para la tabla usuarios. Validar este campo en el login
+* Formulario de creación/edición de usuario.
+* Catálogo de perfiles de usuarios. Alta-baja-editar.
+
 ### Proyecto basado en
 https://medium.com/@cvallejo/autenticaci%C3%B3n-de-usuarios-y-roles-en-laravel-5-5-97ab59552d91
 https://medium.com/@cvallejo/roles-usuarios-laravel-2e1c6123ad
