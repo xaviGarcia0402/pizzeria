@@ -16,10 +16,17 @@
               </div>
             @endif
 
-            You are logged in!
+            Estás autenticado como:
+
+            @if(Auth::user()->hasRole('admin'))
+              administrador
+            @else
+              usuario normal
+            @endif
+
           </div><!-- /.card-body -->
         </div><!-- /.card -->
-        
+
       </div><!-- /.col -->
     </div><!-- /.row -->
 
