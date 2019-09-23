@@ -26,7 +26,7 @@
           Usuarios
         </div><!-- /.card-header -->
 
-        <table class="table table-hover mb-0">
+        <table class="table table-hover table-sm mb-0">
           <thead>
             <tr>
               <td>User</td>
