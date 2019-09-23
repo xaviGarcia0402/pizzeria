@@ -6,12 +6,6 @@
   <div class="row justify-content-center">
     <div class="col-md-8">
 
-      @if (session('status'))
-        <div class="alert alert-success" role="alert">
-          {{ session('status') }}
-        </div>
-      @endif
-
       <div class="card">
         <div class="card-header">
           Nuevo usuario
@@ -22,19 +16,28 @@
             <div class="form-group row">
       				<label class="col-sm-3 col-form-label text-sm-right">Usuario</label>
       				<div class="col-sm-9">
-      					<input type="text" class="form-control" placeholder="ej. gmartin" name="username" maxlength="20">
+      					<input type="text" class="form-control @error('name') is-invalid @enderror" placeholder="" name="name" maxlength="254" value="{{ old('name') }}" required>
+                @error('name')
+                  <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
       				</div><!-- /.col -->
       			</div><!-- /.form-group row -->
             <div class="form-group row">
               <label class="col-sm-3 col-form-label text-sm-right">Email</label>
               <div class="col-sm-9">
-                <input type="email" class="form-control" name="email" maxlength="254">
+                <input type="email" class="form-control @error('email') is-invalid @enderror" name="email" maxlength="254" value="{{ old('email') }}" required>
+                @error('email')
+                  <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
               </div><!-- /.col -->
             </div><!-- /.form-group row -->
             <div class="form-group row">
       				<label class="col-sm-3 col-form-label text-sm-right">Contraseña</label>
       				<div class="col-sm-9">
-      					<input type="text" class="form-control" name="password">
+      					<input type="text" class="form-control @error('password') is-invalid @enderror" name="password" value="{{ old('password') }}" required>
+                @error('password')
+                  <div class="invalid-feedback">{{ $message }}</div>
+                @enderror
       				</div><!-- /.col -->
       			</div><!-- /.form-group -->
             <hr>
