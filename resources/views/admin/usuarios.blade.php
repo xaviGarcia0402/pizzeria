@@ -14,6 +14,15 @@
 
       <div class="card">
         <div class="card-header">
+          <div class="btn-group float-right btn-group-xs my-n2 mr-n2">
+            <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+              <i class="fa fa-ellipsis-v fa-fw" aria-hidden="true"></i>
+            </button>
+            <div class="dropdown-menu dropdown-menu-right">
+              <a class="dropdown-item" href="/users/deleted"><i class="fa fa-fw fa-group" aria-hidden="true"></i> Ver inactivos</a>
+            </div>
+          </div><!-- /.btn-group -->
+          <button type="button" class="btn btn-primary float-right my-n2 mr-2"><i class="fa fa-plus"></i> Nuevo</button>
           Usuarios
         </div><!-- /.card-header -->
 
