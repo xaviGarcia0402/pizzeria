@@ -92,5 +92,7 @@
     </main>
 
   </div><!-- /#app -->
+
+  @yield('footer_scripts')
 </body>
 </html>
