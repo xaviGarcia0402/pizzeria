@@ -41,7 +41,7 @@
                 <td class="align-middle">{{ $user->email }}</td>
                 <td style="width: 120px;">
                   <button type="button" class="btn btn-primary btn-sm">Editar</button>
-                  <button type="button" class="btn btn-warning btn-sm" title="Dar de baja" data-toggle="tooltip"><i class="fa fa-trash"></i></button>
+                  <button type="button" class="btn btn-light btn-sm" title="Dar de baja" data-toggle="tooltip"><i class="fa fa-trash"></i></button>
                 </td>
               </tr>
             @endforeach
