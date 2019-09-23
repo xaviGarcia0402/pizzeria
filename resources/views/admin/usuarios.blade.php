@@ -37,18 +37,18 @@
           <tbody>
             @foreach($users as $user)
               <tr>
-                <td>{{ $user->name }}</td>
-                <td>{{ $user->email }}</td>
-                <td style="width: 150px;">
+                <td class="align-middle">{{ $user->name }}</td>
+                <td class="align-middle">{{ $user->email }}</td>
+                <td style="width: 120px;">
                   <button type="button" class="btn btn-primary btn-sm">Editar</button>
-                  <button type="button" class="btn btn-warning btn-sm">Borrar</button>
+                  <button type="button" class="btn btn-warning btn-sm"><i class="fa fa-trash"></i></button>
                 </td>
               </tr>
             @endforeach
           </tbody>
         </table>
 
-        </div><!-- /.card -->
+      </div><!-- /.card -->
 
     </div><!-- /.col -->
   </div><!-- /.row -->
