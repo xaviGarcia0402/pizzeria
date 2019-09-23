@@ -17,4 +17,12 @@ class AdminController extends Controller{
     return view('admin.usuarios', ["users"=>$users]);
   }
 
+  public function nuevousuario(){
+    return view('admin.nuevousuario');
+  }
+
+  public function guardarsuario(){
+    return "guardarsuario";
+  }
+
 }

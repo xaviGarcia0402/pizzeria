@@ -15,7 +15,7 @@
       <div class="card">
         <div class="card-header">
           <div class="btn-group float-right btn-group-xs my-n2 mr-n2">
-            <button type="button" class="btn btn-primary float-right "><i class="fa fa-plus"></i> Nuevo</button>
+            <a href="{{ route('admin.nuevousuario') }}" class="btn btn-primary float-right "><i class="fa fa-plus"></i> Nuevo</a>
             <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-ellipsis-v fa-fw" aria-hidden="true"></i>
             </button>

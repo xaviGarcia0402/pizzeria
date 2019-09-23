@@ -21,4 +21,6 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('admin')->group(function() {
   Route::get('usuarios', 'AdminController@index')->name('admin.usuarios');
+  Route::get('nuevousuario', 'AdminController@nuevousuario')->name('admin.nuevousuario');
+  Route::post('usuarios', 'AdminController@guardarsuario');
 });
