@@ -20,7 +20,7 @@ class AdminController extends Controller{
   }
 
   public function nuevousuario(){
-    return view('admin.nuevousuario');
+    return view('admin.usuario_form');
   }
 
   public function guardarsuario(Request $request){
