@@ -13,8 +13,6 @@ class UsuariosController extends Controller{
   private $errores;
 
   public function __construct(){
-    $this->middleware('auth');
-    $this->middleware('role:admin');
     $this->errores = [
       'required' => 'El campo es requerido.',
       'email' => 'Email incorrecto',
