@@ -25,6 +25,18 @@ class UsuariosController extends Controller{
     return view('admin.usuarios', ["users"=>$users]);
   }
 
+
+  public function inactivos(){
+    $users = User::where('activo',0)->get();
+    return view('admin.usuarios', ["users"=>$users]);
+  }
+
+
+  public function cambiar_status(){
+    return "En construcción";
+  }
+
+
   public function create(){
     return view('admin.usuario_form', ["modo" => "nuevo", "user" => new User()]);
   }
