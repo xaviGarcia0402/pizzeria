@@ -19,8 +19,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
-Route::group(['prefix' => 'admin',  'middleware' => ['auth','role:admin']], function(){
+Route::group(['prefix' => 'admin', 'middleware' => ['auth','role:admin']], function(){
   Route::resource('usuarios', 'Admin\UsuariosController')->except([
     'show', 'destroy'
   ]);
+  Route::get('usuarios/inactivos', 'Admin\UsuariosController@inactivos')->name('usuarios.inactivos');
+  Route::post('usuarios/cambiar_status', 'Admin\UsuariosController@cambiar_status');
 });
