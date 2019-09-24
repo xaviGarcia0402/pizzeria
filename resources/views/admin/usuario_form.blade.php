@@ -15,7 +15,7 @@
           @endif
         </div><!-- /.card-header -->
         <div class="card-body">
-          <form action="{{ $modo == 'nuevo' ? route('admin.usuarios.store') : route('admin.usuarios.update', ['id'=>$user->id]) }}" method="post">
+          <form action="{{ $modo == 'nuevo' ? route('usuarios.store') : route('usuarios.update', ['usuario'=>$user->id]) }}" method="POST">
             {{ csrf_field() }}
             @if($modo=="editar") @method('PUT') @endif
             <div class="form-group row">

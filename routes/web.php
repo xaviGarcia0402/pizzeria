@@ -20,12 +20,7 @@ Auth::routes();
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::prefix('admin')->group(function() {
-  Route::prefix('usuarios')->group(function() {
-    Route::get('/', 'AdminController@index')->name('admin.usuarios');
-    Route::get('/create', 'AdminController@usuario')->name('admin.usuarios.create');
-    Route::post('/', 'AdminController@store')->name('admin.usuarios.store');
-    Route::get('/{id}', 'AdminController@show')->name('admin.usuarios.show');
-    Route::get('/{id}/edit', 'AdminController@usuarioeditar')->name('admin.usuarios.edit');
-    Route::put('/{id}', 'AdminController@usuarioupdate')->name('admin.usuarios.update');
-  });
+  Route::resource('usuarios', 'Admin\UsuariosController')->except([
+    'show', 'destroy'
+  ]);
 });

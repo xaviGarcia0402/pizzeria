@@ -1,13 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
+use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use App\User;
 use App\Role;
 
-class AdminController extends Controller{
+class UsuariosController extends Controller{
 
   private $errores;
 
@@ -26,7 +27,7 @@ class AdminController extends Controller{
     return view('admin.usuarios', ["users"=>$users]);
   }
 
-  public function usuario(){
+  public function create(){
     return view('admin.usuario_form', ["modo" => "nuevo", "user" => new User()]);
   }
 
@@ -43,19 +44,19 @@ class AdminController extends Controller{
       'password' => Hash::make($request['password']),
     ]);
     $user->roles()->attach(Role::where('name', 'user')->first());
-    return redirect()->route('admin.usuarios');
+    return redirect()->route('usuarios.index');
   }
 
   public function show(){
     return "Show";
   }
 
-  public function usuarioeditar($id){
+  public function edit($id){
     $user = User::findOrFail($id);
     return view('admin.usuario_form', ["modo" => "editar"])->withUser($user);
   }
 
-  public function usuarioupdate(Request $request, $id){
+  public function update(Request $request, $id){
     $user = User::find($id);
 
     $validaciones = [
@@ -70,7 +71,7 @@ class AdminController extends Controller{
     if(! empty($request['password'])){ $user->password = Hash::make($request->input('password')); }
 
     $user->save();
-    return redirect()->route('admin.usuarios');
+    return redirect()->route('usuarios.index');
   }
 
 }
