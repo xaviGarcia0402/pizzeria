@@ -25,6 +25,7 @@
 * Ver usuarios dados de baja
 * Catálogo de perfiles de usuarios. Alta-baja-editar.
 * Tabla para el registro de cambios (log)
+* Que el usuario pueda editar sus datos y cambir su contraseña
 
 ### Proyecto basado en
 https://medium.com/@cvallejo/autenticaci%C3%B3n-de-usuarios-y-roles-en-laravel-5-5-97ab59552d91
