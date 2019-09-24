@@ -93,6 +93,15 @@
 
   </div><!-- /#app -->
 
+  <script type="text/javascript">
+    window.addEventListener('load', function(){
+      $.ajaxSetup({
+        headers: { 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')}
+      });
+    });
+  </script>
+
   @yield('footer_scripts')
+
 </body>
 </html>
