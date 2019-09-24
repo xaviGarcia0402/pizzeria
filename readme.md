@@ -22,7 +22,6 @@
 
 ## Por hacer
 * Crear campo active para la tabla usuarios. Validar este campo en el login
-* Formulario de edición de usuario.
 * Ver usuarios dados de baja
 * Catálogo de perfiles de usuarios. Alta-baja-editar.
 * Tabla para el registro de cambios (log)
