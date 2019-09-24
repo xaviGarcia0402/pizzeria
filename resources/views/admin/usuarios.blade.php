@@ -95,8 +95,8 @@
   	    },
   	    success: function(x){
   				x = $.trim(x);
-          alert(x);
-  				// if(x.substr(0,2) == "ok"){
+  				if(x.substr(0,2) == "ok"){
+            window.location.reload();
   	      //   $("#modal_multiusos_sm .modal-body").html(
   	      //   	'<div class="alert alert-success">'+
   	      //   		'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
@@ -104,8 +104,11 @@
   	      //   	'</div>'
   	      //   );
   	      //   $('#usuarios').DataTable().ajax.reload(null, false);
-  	      // }
-  	      // else{ $("#modal_multiusos_sm .modal-body").html(x); }
+  	      }
+  	      else{
+            alert(x);
+            // $("#modal_multiusos_sm .modal-body").html(x);
+          }
   	    }// /success
   	  });// /ajax
     }// /statusToggle

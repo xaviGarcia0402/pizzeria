@@ -21,7 +21,7 @@ class UsuariosController extends Controller{
   }
 
   public function index(Request $request){
-    $users = User::all();
+    $users = User::where('activo',1)->get();
     return view('admin.usuarios', ["users"=>$users]);
   }
 
@@ -32,8 +32,12 @@ class UsuariosController extends Controller{
   }
 
 
-  public function cambiar_status(){
-    return "En construcción";
+  public function cambiar_status(Request $request){
+    $user = User::findOrFail($request['id']);
+    if($user->activo != $request['activo']){ return 'Ya cambiaron el status'; }
+    $user->activo = ! $user->activo;
+    $user->save();
+    return 'ok';
   }
 
 
