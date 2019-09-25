@@ -19,6 +19,6 @@ class CheckActive
         return $next($request);
       }
       Auth::logout();
-      return redirect()->route('login')->withMessage('hola');
+      return redirect()->route('login')->withMessage('Cuenta desactivada');
     }
 }
