@@ -21,14 +21,20 @@ class UsuariosController extends Controller{
   }
 
   public function index(Request $request){
-    $users = User::where('activo',1)->get();
-    return view('admin.usuarios', ["users"=>$users]);
+    $data = [
+      "activos" => 1,
+      "users" => User::where('activo',1)->get(),
+    ];
+    return view('admin.usuarios', $data);
   }
 
 
   public function inactivos(){
-    $users = User::where('activo',0)->get();
-    return view('admin.usuarios', ["users"=>$users]);
+    $data = [
+      "activos" => 0,
+      "users" => User::where('activo',0)->get(),
+    ];
+    return view('admin.usuarios', $data);
   }
 
 
