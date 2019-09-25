@@ -47,4 +47,5 @@ $ php artisan migrate:refresh --seed
 $ php artisan make:controller AdminController
 $ php artisan make:middleware CheckRole
 $ npm i font-awesome --save
+$ php artisan make:controller Admin/RolesController --resource
 ```

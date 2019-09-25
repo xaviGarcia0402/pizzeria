@@ -25,4 +25,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','activo','role:admin'
   ]);
   Route::get('usuarios/inactivos', 'Admin\UsuariosController@inactivos')->name('usuarios.inactivos');
   Route::post('usuarios/cambiar_status', 'Admin\UsuariosController@cambiar_status');
+
+  Route::resource('roles', 'Admin\RolesController');
 });
