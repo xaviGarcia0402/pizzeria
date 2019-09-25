@@ -1,0 +1,19 @@
+// Tomados de AdminLTE-3
+.card .overlay, .info-box .overlay, .overlay-wrapper .overlay, .small-box .overlay {
+  border-radius: .25rem;
+  -ms-flex-align: center;
+  align-items: center;
+  background: rgba(255,255,255,.7);
+  display: -ms-flexbox;
+  display: flex;
+  -ms-flex-pack: center;
+  justify-content: center;
+  z-index: 50;
+}
+.card > .loading-img, .card > .overlay, .info-box > .loading-img, .info-box > .overlay, .overlay-wrapper > .loading-img, .overlay-wrapper > .overlay, .small-box > .loading-img, .small-box > .overlay {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}

@@ -13688,3 +13688,30 @@ a.text-dark:focus {
   clip: auto;
 }
 
+.card .overlay,
+.info-box .overlay,
+.overlay-wrapper .overlay,
+.small-box .overlay {
+  border-radius: 0.25rem;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.7);
+  display: flex;
+  justify-content: center;
+  z-index: 50;
+}
+
+.card > .loading-img,
+.card > .overlay,
+.info-box > .loading-img,
+.info-box > .overlay,
+.overlay-wrapper > .loading-img,
+.overlay-wrapper > .overlay,
+.small-box > .loading-img,
+.small-box > .overlay {
+  height: 100%;
+  left: 0;
+  position: absolute;
+  top: 0;
+  width: 100%;
+}
+

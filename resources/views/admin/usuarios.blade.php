@@ -12,7 +12,7 @@
         </div>
       @endif
 
-      <div class="card">
+      <div id="card-usuarios" class="card">
         <div class="card-header">
           <div class="btn-group float-right btn-group-xs my-n2 mr-n2">
             @if ($activos)
@@ -54,6 +54,8 @@
           </tbody>
         </table>
 
+        <div class="overlay" style="display: none;"><i class="fa fa-2x fa-refresh fa-spin"></i></div>
+
       </div><!-- /.card -->
 
     </div><!-- /.col -->
@@ -80,7 +82,6 @@
       var tipo = activo ? 'baja' : 'alta';
 
       if(! confirm('¿Seguro que deseas dar de ' + tipo + ' al usuario '+name+'?')){ return; }
-      // alert("Dando de " + tipo);
       $.ajax({
   	    type: 'POST',
   	    cache: false,
@@ -90,28 +91,20 @@
   				"activo": activo,
   			},
   	    beforeSend: function(){
-  				// $("#modal_multiusos_sm .modal-body").html('<div class="text-center"><div class="spinner-border text-success" role="status"></div></div>');
-  	    	// $("#modal_multiusos_sm").modal();
+          $("#card-usuarios .overlay").show();
   	    },
   	    error: function(){
+          $("#card-usuarios .overlay").hide();
           alert("Error");
-  	    	// $("#modal_multiusos_sm .modal-body").html('<div class="alert alert-warning">Al parecer hubo un error, favor de intentar de nuevo o más tarde.</div>');
   	    },
   	    success: function(x){
   				x = $.trim(x);
+          $("#card-usuarios .overlay").hide();
   				if(x.substr(0,2) == "ok"){
             window.location.reload();
-  	      //   $("#modal_multiusos_sm .modal-body").html(
-  	      //   	'<div class="alert alert-success">'+
-  	      //   		'<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>'+
-  	      //   		'<h4 class="alert-heading">Usuario modificado</h4>'+
-  	      //   	'</div>'
-  	      //   );
-  	      //   $('#usuarios').DataTable().ajax.reload(null, false);
   	      }
   	      else{
             alert(x);
-            // $("#modal_multiusos_sm .modal-body").html(x);
           }
   	    }// /success
   	  });// /ajax
