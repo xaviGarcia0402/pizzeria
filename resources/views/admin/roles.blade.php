@@ -16,12 +16,13 @@
 
       <div id="card-roles" class="card">
         <div class="card-header">
+          {{--
           <div class="btn-group float-right btn-group-xs my-n2 mr-n2">
-            {{-- @if ($activos)
+            @if ($activos)
               <a href="{{ route('usuarios.create') }}" class="btn btn-primary float-right "><i class="fa fa-plus"></i> Nuevo</a>
             @else
               <a href="{{ route('usuarios.index') }}" class="btn btn-primary float-right "><i class="fa fa-chevron-left"></i> Volver a activos</a>
-            @endif --}}
+            @endif
             <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-ellipsis-v fa-fw" aria-hidden="true"></i>
             </button>
@@ -29,30 +30,30 @@
               <a class="dropdown-item" href="{{ route('usuarios.inactivos') }}"><i class="fa fa-group" aria-hidden="true"></i> Ver inactivos</a>
             </div>
           </div><!-- /.btn-group -->
+          --}}
           Roles
         </div><!-- /.card-header -->
 
         <table class="table table-hover table-striped table-sm mb-0">
           <thead>
             <tr>
-              <td>User</td>
-              <td>Email</td>
+              <td>Nombre</td>
+              <td>Descripción</td>
+              <td>Usuarios</td>
               <td></td>
             </tr>
           </thead>
           <tbody>
-            {{-- @foreach($users as $user)
-              <tr class="{{ $user->activo ? '' : 'table-warning' }}">
-                <td class="align-middle">{{ $user->name }}</td>
-                <td class="align-middle">{{ $user->email }}</td>
+            @foreach($roles as $rol)
+              <tr>
+                <td class="align-middle">{{ $rol->name }}</td>
+                <td class="align-middle">{{ $rol->description }}</td>
+                <td>{{ $rol->users()->count() }}</td>
                 <td style="width: 120px;">
-                  <a href="{{ route('usuarios.edit', ['usuario'=>$user->id]) }}" class="btn btn-primary btn-sm">Editar</a>
-                  <button type="button" class="btn btn-status btn-light btn-sm" title="Dar de {{ $user->activo ? 'baja' : 'alta' }}" data-toggle="tooltip" data-id="{{ $user->id }}" data-name="{{ $user->name }}" data-activo="{{ $user->activo }}">
-                    <i class="fa fa-fw fa-{{ $user->activo ? 'arrow-down' : 'arrow-up' }}"></i>
-                  </button>
+                  <a href="{{ route('roles.edit', ['role'=>$rol->id]) }}" class="btn btn-primary btn-sm">Editar</a>
                 </td>
               </tr>
-            @endforeach --}}
+            @endforeach
           </tbody>
         </table>
 

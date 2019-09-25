@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Role;
 
 class RolesController extends Controller
 {
@@ -13,7 +14,10 @@ class RolesController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function index(){
-      return view('admin.roles');
+      $data = [
+        "roles" => Role::all(),
+      ];
+      return view('admin.roles', $data);
     }
 
     /**
