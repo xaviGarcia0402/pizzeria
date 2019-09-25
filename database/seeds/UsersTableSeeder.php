@@ -38,6 +38,6 @@ class UsersTableSeeder extends Seeder
       $admin->activo = false;
       $admin->password = bcrypt('secret');
       $admin->save();
-      $admin->roles()->attach($role_admin);
+      $admin->roles()->attach($role_user);
     }
 }
