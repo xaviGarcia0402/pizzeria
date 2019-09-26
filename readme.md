@@ -22,6 +22,7 @@
 
 ## Por hacer
 * Catálogo de perfiles de usuarios. Alta-baja-editar.
+* Asignar/quitar roles a los usuarios
 * Tabla para el registro de cambios (log)
 * Que el usuario pueda editar sus datos y cambir su contraseña
 * Avatar/foto de los usuarios
