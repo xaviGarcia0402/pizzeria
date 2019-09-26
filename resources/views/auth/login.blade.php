@@ -41,7 +41,7 @@
 
               <div class="form-group row">
                 <div class="col-md-6 offset-md-4">
-                  <div class="form-check custom-checkbox">
+                  <div class="form-check custom-switch">
                     <input class="custom-control-input" type="checkbox" name="remember" id="remember" {{ old('remember') ? 'checked' : '' }}>
                     <label class="custom-control-label" for="remember">
                       {{ __('Remember Me') }}
