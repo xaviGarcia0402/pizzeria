@@ -79,7 +79,7 @@
       $.ajax({
   	    type: "{{ $activos ? 'DELETE' : 'POST' }}",
   	    cache: false,
-  	    url: '/admin/usuarios/{{ $activos ? '' : 'restore/' }}' + $(target).data('id'),
+  	    url: '/admin/usuarios/' + $(target).data('id'),
   	    beforeSend: function(){
           $("#card-usuarios .overlay").show();
   	    },

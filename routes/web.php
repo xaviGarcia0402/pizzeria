@@ -24,7 +24,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','role:admin']], funct
     'show',
   ]);
   Route::get('usuarios/inactivos', 'Admin\UsuariosController@inactivos')->name('usuarios.inactivos');
-  Route::post('usuarios/restore/{id}', 'Admin\UsuariosController@restore');
+  Route::post('usuarios/{usuario}', 'Admin\UsuariosController@restore')->name('usuarios.restore');
 
   Route::resource('roles', 'Admin\RolesController');
 });
