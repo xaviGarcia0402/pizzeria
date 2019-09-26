@@ -12,4 +12,8 @@ class Role extends Model
     return $this->belongsToMany(User::class)->withTimestamps();
   }
 
+  protected $fillable = [
+    'name', 'description',
+  ];
+
 }

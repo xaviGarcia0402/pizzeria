@@ -82,7 +82,7 @@ class UsuariosController extends Controller{
   }
 
   public function update(Request $request, $id){
-    $user = User::find($id);
+    $user = User::findOrFail($id);
 
     $validaciones = [
       'name' => ['required', 'string', 'max:255', 'unique:users,name,'.$id],
