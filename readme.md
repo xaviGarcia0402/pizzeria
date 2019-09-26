@@ -17,7 +17,7 @@
 *  Agrega los datos de conexión a la base de datos en *.env*
 * `php artisan migrate`
 * `php artisan db:seed`
-* `php artisan serve` crear servior en http://localhost:8080/
+* `php artisan serve` crear servior en http://localhost:8000/
 
 
 ## Por hacer
