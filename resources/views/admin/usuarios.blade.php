@@ -41,7 +41,7 @@
           <tbody>
             @foreach($users as $user)
               <tr class="{{ $user->activo ? '' : 'table-warning' }}">
-                <td class="align-middle">{{ $user->name }}</td>
+                <td class="align-middle"><i class="fa fa-fw fa-user"></i> {{ $user->name }}</td>
                 <td class="align-middle">{{ $user->email }}</td>
                 <td style="width: 120px;">
                   <a href="{{ route('usuarios.edit', ['usuario'=>$user->id]) }}" class="btn btn-primary btn-sm">Editar</a>
