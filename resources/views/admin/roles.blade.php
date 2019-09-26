@@ -48,7 +48,7 @@
               <tr>
                 <td class="align-middle">{{ $rol->name }}</td>
                 <td class="align-middle">{{ $rol->description }}</td>
-                <td>{{ $rol->users_activos()->count() }}</td>
+                <td>{{ $rol->users()->where('activo', '1')->count() }}</td>
                 <td style="width: 120px;">
                   <a href="{{ route('roles.edit', ['role'=>$rol->id]) }}" class="btn btn-primary btn-sm">Editar</a>
                 </td>
