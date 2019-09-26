@@ -17,15 +17,15 @@
           <div class="btn-group float-right btn-group-xs my-n2 mr-n2">
             @if ($activos)
               <a href="{{ route('usuarios.create') }}" class="btn btn-primary float-right "><i class="fa fa-plus"></i> Nuevo</a>
+              <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <i class="fa fa-ellipsis-v fa-fw" aria-hidden="true"></i>
+              </button>
+              <div class="dropdown-menu dropdown-menu-right">
+                <a class="dropdown-item" href="{{ route('usuarios.inactivos') }}"><i class="fa fa-group" aria-hidden="true"></i> Ver desactivados</a>
+              </div>
             @else
               <a href="{{ route('usuarios.index') }}" class="btn btn-primary float-right "><i class="fa fa-chevron-left"></i> Volver a activos</a>
             @endif
-            <button type="button" class="btn btn-light dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-              <i class="fa fa-ellipsis-v fa-fw" aria-hidden="true"></i>
-            </button>
-            <div class="dropdown-menu dropdown-menu-right">
-              <a class="dropdown-item" href="{{ route('usuarios.inactivos') }}"><i class="fa fa-group" aria-hidden="true"></i> Ver inactivos</a>
-            </div>
           </div><!-- /.btn-group -->
           Usuarios
         </div><!-- /.card-header -->
@@ -40,13 +40,13 @@
           </thead>
           <tbody>
             @foreach($users as $user)
-              <tr class="{{ $user->activo ? '' : 'table-warning' }}">
+              <tr class="{{ $user->trashed() ? 'table-warning' : '' }}">
                 <td class="align-middle"><i class="fa fa-fw fa-user"></i> {{ $user->name }}</td>
                 <td class="align-middle">{{ $user->email }}</td>
                 <td style="width: 120px;">
                   <a href="{{ route('usuarios.edit', ['usuario'=>$user->id]) }}" class="btn btn-primary btn-sm">Editar</a>
-                  <button type="button" class="btn btn-status btn-light btn-sm" title="Dar de {{ $user->activo ? 'baja' : 'alta' }}" data-toggle="tooltip" data-id="{{ $user->id }}" data-name="{{ $user->name }}" data-activo="{{ $user->activo }}">
-                    <i class="fa fa-fw fa-{{ $user->activo ? 'arrow-down' : 'arrow-up' }}"></i>
+                  <button type="button" class="btn btn-status btn-light btn-sm" title="{{ $user->trashed() ? 'Restaurar' : 'Desactivar' }}" data-toggle="tooltip" data-id="{{ $user->id }}" data-name="{{ $user->name }}">
+                    <i class="fa fa-fw fa-{{ $user->trashed() ? 'arrow-up' : 'ban' }}"></i>
                   </button>
                 </td>
               </tr>
@@ -72,30 +72,21 @@
       $('button.btn-status').click(function(){
         statusToggle(this);
       });
-
     });
 
     function statusToggle(target){
-      var id = $(target).data('id');
-      var name = $(target).data('name');
-      var activo = parseInt( $(target).data('activo') );
-      var tipo = activo ? 'baja' : 'alta';
-
-      if(! confirm('¿Seguro que deseas dar de ' + tipo + ' al usuario '+name+'?')){ return; }
+      if(! confirm('¿Seguro que deseas {{ $activos ? 'desactivar' : 'restaurar' }} al usuario '+$(target).data('name')+'?')){ return; }
       $.ajax({
-  	    type: 'POST',
+  	    type: "{{ $activos ? 'DELETE' : 'POST' }}",
   	    cache: false,
-  	    url: '/admin/usuarios/cambiar_status',
-  	    data: {
-  				"id": id,
-  				"activo": activo,
-  			},
+  	    url: '/admin/usuarios/{{ $activos ? '' : 'restore/' }}' + $(target).data('id'),
   	    beforeSend: function(){
           $("#card-usuarios .overlay").show();
   	    },
-  	    error: function(){
+  	    error: function(xhr, status, error){
           $("#card-usuarios .overlay").hide();
-          alert("Error");
+          var err = JSON.parse(xhr.responseText);
+          alert(err.message);
   	    },
   	    success: function(x){
   				x = $.trim(x);

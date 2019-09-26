@@ -6,10 +6,11 @@ use App\Role;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Database\Eloquent\SoftDeletes;
 
-class User extends Authenticatable
-{
+class User extends Authenticatable{
     use Notifiable;
+    use SoftDeletes;
 
     public function authorizeRoles($roles){
       abort_unless($this->hasAnyRole($roles), 401);

@@ -37,12 +37,4 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-
-    /**
-     * Permitir únicamente el paso a usuarios activos
-     * https://stackoverflow.com/a/42455535
-     */
-    protected function credentials(\Illuminate\Http\Request $request){
-        return ['email' => $request->{$this->username()}, 'password' => $request->password, 'activo' => 1];
-    }
 }

@@ -23,7 +23,7 @@ class UsuariosController extends Controller{
   public function index(Request $request){
     $data = [
       "activos" => 1,
-      "users" => User::where('activo',1)->get(),
+      "users" => User::all(),
     ];
     return view('admin.usuarios', $data);
   }
@@ -32,17 +32,22 @@ class UsuariosController extends Controller{
   public function inactivos(){
     $data = [
       "activos" => 0,
-      "users" => User::where('activo',0)->get(),
+      "users" => User::onlyTrashed()->get(),
     ];
     return view('admin.usuarios', $data);
   }
 
 
-  public function cambiar_status(Request $request){
-    $user = User::findOrFail($request['id']);
-    if($user->activo != $request['activo']){ return 'Ya cambiaron el status'; }
-    $user->activo = ! $user->activo;
-    $user->save();
+  public function destroy(Request $request, $id){
+    $user = User::findOrFail($id);
+    $user->delete();
+    return 'ok';
+  }
+
+
+  public function restore(Request $request, $id){
+    $user = User::onlyTrashed()->findOrFail($id);
+    $user->restore();
     return 'ok';
   }
 
