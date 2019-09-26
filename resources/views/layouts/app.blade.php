@@ -58,8 +58,8 @@
                     Admin
                   </a>
                   <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
-                    <a class="dropdown-item" href="{{ route('usuarios.index') }}">Usuarios</a>
-                    <a class="dropdown-item" href="{{ route('roles.index') }}">Roles de usuarios</a>
+                    <a class="dropdown-item" href="{{ route('usuarios.index') }}"><i class="fa fa-fw fa-user"></i> Usuarios</a>
+                    <a class="dropdown-item" href="{{ route('roles.index') }}"><i class="fa fa-fw fa-key"></i> Roles de usuarios</a>
                   </div>
                 </li>
               @endif
@@ -71,7 +71,7 @@
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="{{ route('logout') }}"
                      onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                      {{ __('Logout') }}
+                      <i class="fa fa-fw fa-times"></i> {{ __('Logout') }}
                   </a>
                   <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf
