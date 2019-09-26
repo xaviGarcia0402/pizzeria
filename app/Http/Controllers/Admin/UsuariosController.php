@@ -16,7 +16,7 @@ class UsuariosController extends Controller{
     $this->errores = [
       'required' => 'El campo es requerido.',
       'email' => 'Email incorrecto',
-      'password.min'    => 'La contraseña debe tener por lo menos :min caracteres',
+      'password.min' => 'La contraseña debe tener por lo menos :min caracteres',
     ];
   }
 
