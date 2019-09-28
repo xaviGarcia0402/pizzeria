@@ -73,4 +73,26 @@ class RolesController extends Controller{
   public function destroy($id){
       //
   }
+
+
+  public function rolesUsuario($id){
+    $user = \App\User::findOrFail($id);
+    $data = [
+      "user" => $user,
+      "roles" => Role::orderBy('name')->get(),
+      // "roles" => Role::whereDoesntHave('id', function(Builder $q){
+      //   $q->where('')
+      // })->get(),
+    ];
+    return view('admin.roles_usuario', $data);
+  }
+
+
+  public function agregarRolAUsuario(Request $request){
+    sleep(1);
+    $user = \App\User::findOrFail( $request->input('userId') );
+    if(! $role = Role::where('id', $request->input('rolId'))->first() ){ return 'Rol no encontrado'; }
+    $user->roles()->attach($role);
+    return "ok";
+  }
 }
