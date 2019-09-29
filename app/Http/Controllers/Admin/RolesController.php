@@ -79,10 +79,7 @@ class RolesController extends Controller{
     $user = \App\User::findOrFail($id);
     $data = [
       "user" => $user,
-      "roles" => Role::orderBy('name')->get(),
-      // "roles" => Role::whereDoesntHave('id', function(Builder $q){
-      //   $q->where('')
-      // })->get(),
+      "roles" => Role::get()->except($user->roles->modelKeys()),
     ];
     return view('admin.roles_usuario', $data);
   }
