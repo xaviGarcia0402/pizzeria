@@ -44,7 +44,12 @@
               <tr class="{{ $user->trashed() ? 'table-warning' : '' }}">
                 <td class="align-middle"><i class="fa fa-fw fa-user"></i> {{ $user->name }}</td>
                 <td class="align-middle">{{ $user->email }}</td>
-                <td class="align-middle">{{ $user->roles->count() }}</td>
+                <td class="align-middle" style="width: 80px;">
+                  <a href="{{ route('roles.usuario', ['usuario'=>$user->id]) }}" class="btn btn-outline-secondary btn-sm btn-block">
+                    {{ $user->roles->count() }}
+                    {{ $user->roles->count() == 1 ? 'Rol' : 'Roles' }}
+                  </a>
+                </td>
                 <td style="width: 120px;">
                   <a href="{{ route('usuarios.edit', ['usuario'=>$user->id]) }}" class="btn btn-primary btn-sm">Editar</a>
                   <button type="button" class="btn btn-status btn-light btn-sm" title="{{ $user->trashed() ? 'Restaurar' : 'Desactivar' }}" data-toggle="tooltip" data-id="{{ $user->id }}" data-name="{{ $user->name }}">

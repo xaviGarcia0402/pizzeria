@@ -18,4 +18,7 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','role:admin']], funct
   Route::resource('roles', 'Admin\RolesController')->except([
     'show','destroy',
   ]);
+  Route::get('roles/usuario/{usuario}', 'Admin\RolesController@rolesUsuario')->name('roles.usuario');
+  Route::post('roles/agregarRolAUsuario', 'Admin\RolesController@agregarRolAUsuario')->name('roles.agregarRolAUsuario');
+  Route::delete('roles/usuario', 'Admin\RolesController@quitarRolAUsuario')->name('roles.quitarRolAUsuario');
 });
