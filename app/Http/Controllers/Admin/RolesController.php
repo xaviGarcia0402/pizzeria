@@ -92,6 +92,7 @@ class RolesController extends Controller{
     sleep(1);
     $user = \App\User::findOrFail( $request->input('userId') );
     if(! $role = Role::where('id', $request->input('rolId'))->first() ){ return 'Rol no encontrado'; }
+    if($user->roles->where('id', $request->input('rolId'))->first()){ return 'Rol anteriormente establecido'; }
     $user->roles()->attach($role);
     return "ok";
   }
