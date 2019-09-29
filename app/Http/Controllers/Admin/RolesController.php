@@ -89,8 +89,16 @@ class RolesController extends Controller{
     sleep(1);
     $user = \App\User::findOrFail( $request->input('userId') );
     if(! $role = Role::where('id', $request->input('rolId'))->first() ){ return 'Rol no encontrado'; }
-    if($user->roles->contains($role)){ return 'Rol anteriormente establecido. Recarcar la página'; }
+    if($user->roles->contains($role)){ return 'Rol anteriormente establecido. Recargar la página'; }
     $user->roles()->attach($role);
+    return "ok";
+  }
+
+  public function quitarRolAUsuario(Request $request){
+    $user = \App\User::findOrFail( $request->input('userId') );
+    if(! $role = Role::where('id', $request->input('rolId'))->first() ){ return 'Rol no encontrado'; }
+    if(! $user->roles->contains($role)){ return 'Rol anteriormente quitado. Recargar la página'; }
+    $user->roles()->detach( $role->id );
     return "ok";
   }
 }

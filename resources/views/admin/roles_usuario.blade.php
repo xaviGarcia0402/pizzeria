@@ -66,7 +66,7 @@
                 <td class="align-middle">{{ $rol->name }}</td>
                 <td class="align-middle">{{ $rol->description }}</td>
                 <td style="width: 50px;">
-                  <a href="{{ route('roles.edit', ['role'=>$rol->id]) }}" class="btn btn-outline-warning btn-sm"><i class="fa fa-remove"></i></a>
+                  <button type="button" class="btn btn-quitar_rol btn-outline-warning btn-sm" title="Quitrar rol" data-toggle="tooltip" data-id="{{ $rol->id }}" data-name="{{ $rol->name }}"><i class="fa fa-remove"></i></button>
                 </td>
               </tr>
             @endforeach
@@ -85,6 +85,13 @@
 
 @section('footer_scripts')
   <script type="text/javascript">
+
+  window.addEventListener('load', function(){
+    $('[data-toggle="tooltip"]').tooltip({placement:'bottom'});
+    $('button.btn-quitar_rol').click(function(){
+      quitarRolAUsuario(this);
+    });
+  });
 
     function agregarRolAUsuario(){
       $.ajax({
@@ -115,6 +122,38 @@
   	    }// /success
   	  });// /ajax
     }// /agregarRolAUsuario
+
+
+    function quitarRolAUsuario(target){
+      if(! confirm('¿Seguro que deseas quitar el rol "'+$(target).data('name')+'" al usuario {{ $user->name }}?')){ return; }
+      $.ajax({
+  	    type: "DELETE",
+  	    cache: false,
+  	    url: '{{ route('roles.quitarRolAUsuario') }}',
+        data: {
+          userId: {{ $user->id }},
+          rolId: $(target).data('id'),
+        },
+  	    beforeSend: function(){
+          $("#card-roles .overlay").show();
+  	    },
+  	    error: function(xhr, status, error){
+          $("#card-roles .overlay").hide();
+          var err = JSON.parse(xhr.responseText);
+          alert(err.message);
+  	    },
+  	    success: function(x){
+  				x = $.trim(x);
+          $("#card-roles .overlay").hide();
+  				if(x.substr(0,2) == "ok"){
+            window.location.reload();
+  	      }
+  	      else{
+            alert(x);
+          }
+  	    }// /success
+  	  });// /ajax
+    }// /quitarRolAUsuario
 
   </script>
 @endsection
