@@ -20,7 +20,6 @@
               @foreach($roles as $rol)
                 <option value="{{ $rol->id }}">{{ $rol->name }}</option>
               @endforeach
-              <option value="99">FICTICIO</option>
             </select>
           </div><!-- /.form-group -->
           <div class="form-result"></div>
