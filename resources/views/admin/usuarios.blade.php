@@ -35,7 +35,7 @@
             <tr>
               <td>User</td>
               <td>Email</td>
-              <td>Roles</td>
+              <td class="text-center">Roles</td>
               <td></td>
             </tr>
           </thead>
@@ -45,14 +45,14 @@
                 <td class="align-middle"><i class="fa fa-fw fa-user"></i> {{ $user->name }}</td>
                 <td class="align-middle">{{ $user->email }}</td>
                 <td class="align-middle" style="width: 80px;">
-                  <a href="{{ route('roles.usuario', ['usuario'=>$user->id]) }}" class="btn btn-outline-secondary btn-sm btn-block">
+                  <a href="{{ route('roles.usuario', ['usuario'=>$user->id]) }}" class="btn btn-outline-secondary btn-sm btn-block border-0">
                     {{ $user->roles->count() }}
                     {{ $user->roles->count() == 1 ? 'Rol' : 'Roles' }}
                   </a>
                 </td>
                 <td style="width: 120px;">
-                  <a href="{{ route('usuarios.edit', ['usuario'=>$user->id]) }}" class="btn btn-primary btn-sm">Editar</a>
-                  <button type="button" class="btn btn-status btn-light btn-sm" title="{{ $user->trashed() ? 'Restaurar' : 'Desactivar' }}" data-toggle="tooltip" data-id="{{ $user->id }}" data-name="{{ $user->name }}">
+                  <a href="{{ route('usuarios.edit', ['usuario'=>$user->id]) }}" class="btn btn-primary btn-sm btn-hover">Editar</a>
+                  <button type="button" class="btn btn-status btn-light btn-sm btn-hover" title="{{ $user->trashed() ? 'Restaurar' : 'Desactivar' }}" data-toggle="tooltip" data-id="{{ $user->id }}" data-name="{{ $user->name }}">
                     <i class="fa fa-fw fa-{{ $user->trashed() ? 'arrow-up' : 'ban' }}"></i>
                   </button>
                 </td>

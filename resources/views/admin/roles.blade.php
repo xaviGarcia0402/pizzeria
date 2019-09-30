@@ -26,7 +26,7 @@
               <td>Nombre</td>
               <td>Descripción</td>
               <td>Usuarios</td>
-              <td></td>
+              <td style="width: 80px;"></td>
             </tr>
           </thead>
           <tbody>
@@ -35,8 +35,8 @@
                 <td class="align-middle">{{ $rol->name }}</td>
                 <td class="align-middle">{{ $rol->description }}</td>
                 <td>{{ $rol->users()->count() }}</td>
-                <td style="width: 120px;">
-                  <a href="{{ route('roles.edit', ['role'=>$rol->id]) }}" class="btn btn-primary btn-sm">Editar</a>
+                <td>
+                  <a href="{{ route('roles.edit', ['role'=>$rol->id]) }}" class="btn btn-primary btn-sm btn-hover">Editar</a>
                 </td>
               </tr>
             @endforeach
