@@ -17,3 +17,16 @@
   top: 0;
   width: 100%;
 }
+
+
+/************/
+/* Botones */
+/**********/
+.btn-hover{
+  opacity: 0;
+  transition: 300ms;
+}
+.media:hover .btn-hover,
+tr:hover .btn-hover{
+  opacity: 1;
+}
