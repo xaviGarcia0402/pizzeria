@@ -66,7 +66,7 @@
                 <td class="align-middle">{{ $rol->name }}</td>
                 <td class="align-middle">{{ $rol->description }}</td>
                 <td style="width: 50px;">
-                  <button type="button" class="btn btn-quitar_rol btn-outline-warning btn-sm" title="Quitrar rol" data-toggle="tooltip" data-id="{{ $rol->id }}" data-name="{{ $rol->name }}"><i class="fa fa-remove"></i></button>
+                  <button type="button" class="btn btn-quitar_rol btn-outline-warning btn-sm btn-hover" title="Quitrar rol" data-toggle="tooltip" data-id="{{ $rol->id }}" data-name="{{ $rol->name }}"><i class="fa fa-remove"></i></button>
                 </td>
               </tr>
             @endforeach
