@@ -101,4 +101,14 @@ class RolesController extends Controller{
     $user->roles()->detach( $role->id );
     return "ok";
   }
+
+
+  public function usuariosConRol($id){
+    $rol = Role::findOrFail($id);
+    $data = [
+      "rol" => $rol,
+      "users" => $rol->users()->orderBy('name')->get()
+    ];
+    return view('admin.roles_usuarios', $data);
+  }
 }
