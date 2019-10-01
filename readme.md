@@ -21,7 +21,6 @@
 
 
 ## Por hacer
-* Tabla para el registro de cambios (log)
 * Que el usuario pueda editar sus datos y cambir su contraseña
 * Avatar/foto de los usuarios
 * Paginación de los usuarios/roles
@@ -57,4 +56,5 @@ $ composer require spatie/laravel-activitylog
 $ php artisan vendor:publish --provider="Spatie\Activitylog\ActivitylogServiceProvider" --tag="migrations"
 $ php artisan migrate
 $ php artisan vendor:publish --provider="Spatie\Activitylog\ActivitylogServiceProvider" --tag="config"
+$ php artisan make:controller Admin/LogsController
 ```
