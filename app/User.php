@@ -7,10 +7,15 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Spatie\Activitylog\Traits\LogsActivity;
 
 class User extends Authenticatable{
     use Notifiable;
     use SoftDeletes;
+
+    use LogsActivity;
+    protected static $logAttributes = ['name', 'email', 'deleted_at'];
+    protected static $logOnlyDirty = true;
 
     public function authorizeRoles($roles){
       abort_unless($this->hasAnyRole($roles), 401);

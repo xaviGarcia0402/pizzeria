@@ -37,4 +37,11 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
+
+    function authenticated(\Illuminate\Http\Request $request, $user){
+      activity()
+        ->withProperties(['ip' => $request->getClientIp()])
+        ->log('Acceso de usuario');
+    }
+
 }
