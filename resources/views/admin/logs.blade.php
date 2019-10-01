@@ -48,7 +48,7 @@
             @foreach($logs as $log)
               <tr>
                 <td class="align-middle">{{ $log->created_at }}</td>
-                <td class="align-middle">{{ $log->causer->name }}</td>
+                <td class="align-middle">{{ $log->causer ? $log->causer->name : '' }}</td>
                 <td class="align-middle">{{ $log->log_name }}</td>
                 <td class="align-middle">{{ $log->description }}</td>
                 <td class="align-middle">{{ $log->subject_type }}</td>
