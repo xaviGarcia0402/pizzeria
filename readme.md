@@ -31,6 +31,10 @@ https://medium.com/@cvallejo/autenticaci%C3%B3n-de-usuarios-y-roles-en-laravel-5
 https://medium.com/@cvallejo/roles-usuarios-laravel-2e1c6123ad
 https://github.com/karoys/laravel-native-roles-auth
 https://medium.com/@cvallejo/middleware-roles-en-laravel-5-6-87541406426f
+https://laraveldaily.com/save-users-last-login-time-ip-address/
+
+### Librerías usadas
+https://github.com/spatie/laravel-activitylog
 
 ---
 
@@ -49,4 +53,8 @@ $ php artisan make:controller AdminController
 $ php artisan make:middleware CheckRole
 $ npm i font-awesome --save
 $ php artisan make:controller Admin/RolesController --resource
+$ composer require spatie/laravel-activitylog
+$ php artisan vendor:publish --provider="Spatie\Activitylog\ActivitylogServiceProvider" --tag="migrations"
+$ php artisan migrate
+$ php artisan vendor:publish --provider="Spatie\Activitylog\ActivitylogServiceProvider" --tag="config"
 ```
