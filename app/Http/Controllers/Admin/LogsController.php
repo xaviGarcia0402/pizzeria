@@ -9,7 +9,7 @@ use Spatie\Activitylog\Models\Activity;
 class LogsController extends Controller{
 
   public function index(){
-    $logs = Activity::paginate(10);
+    $logs = Activity::orderBy("created_at","desc")->paginate(10);
     return view('admin.logs', ["logs" => $logs]);
   }
 
