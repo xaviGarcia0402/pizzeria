@@ -8,6 +8,10 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::group(['prefix' => 'profile', 'middleware' => ['auth']], function(){
+  Route::get('/', 'ProfileController@index')->name('profile.index');
+});// /group prefix=>profile
+
 Route::group(['prefix' => 'admin', 'middleware' => ['auth','role:admin']], function(){
   Route::resource('usuarios', 'Admin\UsuariosController')->except([
     'show',

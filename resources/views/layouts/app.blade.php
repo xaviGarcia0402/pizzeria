@@ -75,6 +75,8 @@
                   {{ Auth::user()->name }} <span class="caret"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
+                  <a class="dropdown-item" href="{{ route('profile.index') }}"><i class="fa fa-fw fa-pencil"></i> Perfil</a>
+                  <div class="dropdown-divider"></div>
                   <a class="dropdown-item" href="{{ route('logout') }}"
                      onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
                       <i class="fa fa-fw fa-times"></i> {{ __('Logout') }}
