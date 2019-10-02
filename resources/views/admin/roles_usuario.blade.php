@@ -49,6 +49,7 @@
           <div class="btn-group float-right btn-group-xs my-n2 mr-n2">
             <button type="button" class="btn btn-primary float-right" data-toggle="modal" data-target="#modal_agregar_rol"><i class="fa fa-plus"></i> Agregar</button>
           </div><!-- /.btn-group -->
+          <img class="border rounded my-n3 ml-n3 mr-1" src="{{ asset('storage/avatars/'.$user->avatar) }}" style="width: 30px" /> 
           Roles del usuario {{ $user->name }}
         </div><!-- /.card-header -->
 

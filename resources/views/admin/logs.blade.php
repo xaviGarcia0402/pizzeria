@@ -36,7 +36,7 @@
         <table class="table table-hover table-striped table-sm mb-0">
           <thead>
             <tr>
-              <td>Fecha</td>
+              <td style="width: 140px;">Fecha</td>
               <td>Usuario</td>
               <td>Tipo</td>
               <td>Descripción</td>
@@ -48,7 +48,12 @@
             @foreach($logs as $log)
               <tr>
                 <td class="align-middle">{{ $log->created_at }}</td>
-                <td class="align-middle">{{ $log->causer ? $log->causer->name : '' }}</td>
+                <td class="align-middle">
+                  @if($log->causer)
+                    <img class="border rounded" src="{{ asset('storage/avatars/'.$log->causer->avatar) }}" style="width: 30px" />
+                    {{ $log->causer->name }}
+                  @endif
+                </td>
                 <td class="align-middle">{{ $log->log_name }}</td>
                 <td class="align-middle">{{ $log->description }}</td>
                 <td class="align-middle">{{ $log->subject_type }}</td>

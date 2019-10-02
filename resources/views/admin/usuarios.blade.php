@@ -33,7 +33,7 @@
         <table class="table table-hover table-striped table-sm mb-0">
           <thead>
             <tr>
-              <td>User</td>
+              <td>Usuario</td>
               <td>Email</td>
               <td class="text-center">Roles</td>
               <td></td>
@@ -42,7 +42,10 @@
           <tbody>
             @foreach($users as $user)
               <tr class="{{ $user->trashed() ? 'table-warning' : '' }}">
-                <td class="align-middle"><i class="fa fa-fw fa-user"></i> {{ $user->name }}</td>
+                <td class="align-middle">
+                  <img class="border rounded" src="{{ asset('storage/avatars/'.$user->avatar) }}" style="width: 30px" /> 
+                  {{ $user->name }}
+                </td>
                 <td class="align-middle">{{ $user->email }}</td>
                 <td class="align-middle" style="width: 80px;">
                   <a href="{{ route('roles.usuario', ['usuario'=>$user->id]) }}" class="btn btn-outline-secondary btn-sm btn-block border-0">
