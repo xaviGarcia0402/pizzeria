@@ -17,12 +17,11 @@
 *  Agrega los datos de conexión a la base de datos en *.env*
 * `php artisan migrate`
 * `php artisan db:seed`
+* `php artisan storage:link`
 * `php artisan serve` crear servior en http://localhost:8000/
 
 
 ## Por hacer
-* Que el usuario pueda editar sus datos y cambir su contraseña
-* Avatar/foto de los usuarios
 * Paginación de los usuarios/roles
 
 ### Proyecto basado en
