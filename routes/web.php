@@ -10,6 +10,8 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::group(['prefix' => 'profile', 'middleware' => ['auth']], function(){
   Route::get('/', 'ProfileController@index')->name('profile.index');
+  Route::put('/', 'ProfileController@update')->name('profile.update');
+  Route::put('/pass', 'ProfileController@pass')->name('profile.pass');
 });// /group prefix=>profile
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth','role:admin']], function(){
