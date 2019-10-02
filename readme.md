@@ -57,4 +57,5 @@ $ php artisan vendor:publish --provider="Spatie\Activitylog\ActivitylogServicePr
 $ php artisan migrate
 $ php artisan vendor:publish --provider="Spatie\Activitylog\ActivitylogServiceProvider" --tag="config"
 $ php artisan make:controller Admin/LogsController
+$ php artisan make:controller ProfileController
 ```
