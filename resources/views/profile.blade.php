@@ -27,7 +27,7 @@
               <h2>Datos</h2>
               <hr>
               <form action="{{ route('profile.update') }}" method="POST">
-                {{ csrf_field() }}
+                @csrf
                 @method('PUT')
                 <div class="form-group row">
           				<label class="col-sm-3 col-form-label text-sm-right">Usuario</label>
@@ -62,7 +62,7 @@
               <h2>Contraseña</h2>
               <hr>
               <form action="{{ route('profile.pass') }}" method="POST">
-                {{ csrf_field() }}
+                @csrf
                 @method('PUT')
                 <div class="form-group row">
           				<label class="col-sm-3 col-form-label text-sm-right">Actual</label>
