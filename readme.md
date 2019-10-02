@@ -5,7 +5,7 @@
 * Roles: creación/edición
 * Roles a usuarios: asignar/quitar
 * Perfil del usuario: datos, foto y contraseña
-* Logs: registro de sucesos 
+* Logs: registro de sucesos
 
 ## Requerimientos
 * PHP >= 7.2.0
@@ -39,7 +39,7 @@
 * https://laraveldaily.com/save-users-last-login-time-ip-address/
 * https://www.5balloons.info/upload-profile-picture-avatar-laravel-5-authentication/
 
-### Librerías usadas
+### Librerías externas usadas
 * https://github.com/spatie/laravel-activitylog
 
 ---
