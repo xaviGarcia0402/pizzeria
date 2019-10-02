@@ -28,8 +28,14 @@
 * `php artisan serve` crear servior en http://localhost:8000/
 
 
+## Usuario administrador
+|  Email | Contraseña |
+|---|---|
+|  `admin@example.com` |  `secret` |
+
 ## Por hacer
 * Paginación de los usuarios/roles
+
 
 ### Proyecto basado en
 * https://medium.com/@cvallejo/autenticaci%C3%B3n-de-usuarios-y-roles-en-laravel-5-5-97ab59552d91
