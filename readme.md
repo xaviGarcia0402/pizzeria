@@ -1,11 +1,11 @@
 # Administración de usuarios en Laravel 6
 
 ## Características
-* Creación/edición de usuarios
-* Creación/edición de roles
-* Asignar/quitar roles a usuarios
+* Usuarios: creación/edición/desactivación/re-activación
+* Roles: creación/edición
+* Roles a usuarios: asignar/quitar
 * Perfil del usuario: datos, foto y contraseña
-* Registro de sucesos (logs)
+* Logs: registro de sucesos 
 
 ## Requerimientos
 * PHP >= 7.2.0
