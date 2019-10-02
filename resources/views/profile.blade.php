@@ -13,11 +13,11 @@
   <div class="card">
     <div class="card-body">
       <div class="row">
-        <div class="col-sm-3">
-          <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a class="nav-link active" data-toggle="pill" href="#datos" role="tab" aria-controls="datos" aria-selected="true">Datos</a>
-            <a class="nav-link" data-toggle="pill" href="#foto" role="tab" aria-controls="foto" aria-selected="false">Foto</a>
-            <a class="nav-link" data-toggle="pill" href="#pass" role="tab" aria-controls="pass" aria-selected="false">Contraseña</a>
+        <div class="col-sm-3 mb-2">
+          <div class="nav flex-md-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+            <a class="nav-link  p-2 active" data-toggle="pill" href="#datos" role="tab" aria-controls="datos" aria-selected="true">Datos</a>
+            <a class="nav-link  p-2" data-toggle="pill" href="#foto" role="tab" aria-controls="foto" aria-selected="false">Foto</a>
+            <a class="nav-link  p-2" data-toggle="pill" href="#pass" role="tab" aria-controls="pass" aria-selected="false">Contraseña</a>
           </div>
         </div><!-- /.col -->
         <div class="col-sm-9">
