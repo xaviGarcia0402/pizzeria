@@ -29,12 +29,12 @@
 
 
 ## Usuario administrador
-|  Email | Contraseña |
+| Email | Contraseña |
 |---|---|
-|  `admin@example.com` |  `secret` |
+| `admin@example.com` | `secret` |
 
 ## Por hacer
-* Paginación de los usuarios/roles
+- [ ] Paginación de los usuarios/roles
 
 
 ### Proyecto basado en
