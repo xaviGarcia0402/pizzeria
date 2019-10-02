@@ -15,15 +15,15 @@
       <div class="row">
         <div class="col-sm-3">
           <div class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-            <a class="nav-link active" data-toggle="pill" href="#datos-tab" role="tab" aria-controls="edit-profile-tab" aria-selected="true">Datos</a>
-            <a class="nav-link" data-toggle="pill" href="#foto-tab" role="tab" aria-controls="edit-settings-tab" aria-selected="false">Foto</a>
-            <a class="nav-link" data-toggle="pill" href="#pass-tab" role="tab" aria-controls="edit-settings-tab" aria-selected="false">Contraseña</a>
+            <a class="nav-link active" data-toggle="pill" href="#datos" role="tab" aria-controls="datos" aria-selected="true">Datos</a>
+            <a class="nav-link" data-toggle="pill" href="#foto" role="tab" aria-controls="foto" aria-selected="false">Foto</a>
+            <a class="nav-link" data-toggle="pill" href="#pass" role="tab" aria-controls="pass" aria-selected="false">Contraseña</a>
           </div>
         </div><!-- /.col -->
         <div class="col-sm-9">
           <div class="tab-content" id="v-pills-tabContent">
 
-            <div id="datos-tab" class="tab-pane fade show active" role="tabpanel" aria-labelledby="v-pills-home-tab">
+            <div id="datos" class="tab-pane fade show active" role="tabpanel" aria-labelledby="v-pills-home-tab">
               <h2>Datos</h2>
               <hr>
               <form action="{{ route('profile.update') }}" method="POST">
@@ -52,13 +52,13 @@
               </form>
             </div><!-- /#datos-tab -->
 
-            <div id="foto-tab" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+            <div id="foto" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-profile-tab">
               <h2>Foto</h2>
               <hr>
               <div class="alert alert-info">En construcción</div>
             </div><!-- /#foto-tab -->
 
-            <div id="pass-tab" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-profile-tab">
+            <div id="pass" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-profile-tab">
               <h2>Contraseña</h2>
               <hr>
               <form action="{{ route('profile.pass') }}" method="POST">

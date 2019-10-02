@@ -57,7 +57,7 @@ class ProfileController extends Controller{
 
     $validator = Validator::make($request->all(), $validaciones, $this->errores);
      if ($validator->fails()) {
-         return redirect(route('profile.update', ['#pass-tab']))->withErrors($validator)->withInput();
+         return redirect(route('profile.update', ['#pass']))->withErrors($validator)->withInput();
      }
 
     $user = \Auth::user();
