@@ -31,6 +31,7 @@
 * https://github.com/karoys/laravel-native-roles-auth
 * https://medium.com/@cvallejo/middleware-roles-en-laravel-5-6-87541406426f
 * https://laraveldaily.com/save-users-last-login-time-ip-address/
+* https://www.5balloons.info/upload-profile-picture-avatar-laravel-5-authentication/
 
 ### Librerías usadas
 * https://github.com/spatie/laravel-activitylog
@@ -58,4 +59,5 @@ $ php artisan migrate
 $ php artisan vendor:publish --provider="Spatie\Activitylog\ActivitylogServiceProvider" --tag="config"
 $ php artisan make:controller Admin/LogsController
 $ php artisan make:controller ProfileController
+$ php artisan storage:link
 ```

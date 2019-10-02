@@ -12,6 +12,7 @@ Route::group(['prefix' => 'profile', 'middleware' => ['auth']], function(){
   Route::get('/', 'ProfileController@index')->name('profile.index');
   Route::put('/', 'ProfileController@update')->name('profile.update');
   Route::put('/pass', 'ProfileController@pass')->name('profile.pass');
+  Route::put('/avatar', 'ProfileController@update_avatar')->name('profile.avatar');
 });// /group prefix=>profile
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth','role:admin']], function(){

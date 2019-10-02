@@ -1,3 +1,28 @@
+/************/
+/* Avatar  */
+/**********/
+.user-avatar-nav {
+  background: url('/storage/avatars/user.png') 50% 50% no-repeat;
+  background-size: auto;
+  background-size: auto 100%;
+  margin-top: -6px;
+  margin-right: 6px;
+  float: left;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  -webkit-user-drag: none;
+  -moz-user-drag: none;
+  -ms-user-drag: none;
+  -o-user-drag: none;
+  user-drag: none;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+}
+
 // Tomados de AdminLTE-3
 .card .overlay, .info-box .overlay, .overlay-wrapper .overlay, .small-box .overlay {
   border-radius: .25rem;

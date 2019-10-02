@@ -55,7 +55,30 @@
             <div id="foto" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-profile-tab">
               <h2>Foto</h2>
               <hr>
-              <div class="alert alert-info">En construcción</div>
+              <div class="row justify-content-center">
+                <div class="col-md-6 text-center mb-2">
+                  <img src="{{ asset('storage/avatars/'.Auth::user()->avatar) }}" style="max-width: 100%" />
+                </div>
+              </div><!-- /.row -->
+              <hr>
+              <form action="{{ route('profile.avatar') }}" method="post" enctype="multipart/form-data">
+                @csrf
+                @method('PUT')
+                <div class="form-group row">
+                  <label class="col-sm-3 col-form-label text-sm-right">Cambiar foto</label>
+                  <div class="col-sm-9">
+                    <input type="file" class="form-control-file @error('avatar') is-invalid @enderror" name="avatar" aria-describedby="fileHelp">
+                    @error('avatar') <div class="invalid-feedback">{{ $message }}</div> @enderror
+                    <small class="form-text text-muted">Adjunta un archivo válido de imagen. No debe exceder los 2MB.</small>
+                  </div><!-- /.col -->
+                </div><!-- /.form-group row -->
+                <hr>
+                <div class="form-group row">
+                  <div class="col-sm-4 mx-auto">
+                    <button type="submit" class="btn btn-outline-primary btn-block">Cambiar</button>
+                  </div><!-- /.col -->
+                </div><!-- /.form-group -->
+              </form>
             </div><!-- /#foto-tab -->
 
             <div id="pass" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-profile-tab">
