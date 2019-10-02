@@ -17,6 +17,10 @@
 
   <!-- Styles -->
   <link href="{{ asset('css/app.css') }}" rel="stylesheet">
+  @auth
+    <style media="screen"> .user-avatar-nav { background-image: url('{{ asset('storage/avatars/'.Auth::user()->avatar) }}'); } </style>
+  @endauth
+
 </head>
 <body>
   <div id="app">
@@ -72,14 +76,14 @@
 
               <li class="nav-item dropdown">
                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                  <div class="user-avatar-nav"></div>
                   {{ Auth::user()->name }} <span class="caret"></span>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right" aria-labelledby="navbarDropdown">
                   <a class="dropdown-item" href="{{ route('profile.index') }}"><i class="fa fa-fw fa-pencil"></i> Perfil</a>
                   <div class="dropdown-divider"></div>
-                  <a class="dropdown-item" href="{{ route('logout') }}"
-                     onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
-                      <i class="fa fa-fw fa-times"></i> {{ __('Logout') }}
+                  <a class="dropdown-item" href="{{ route('logout') }}" onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                    <i class="fa fa-fw fa-times"></i> {{ __('Logout') }}
                   </a>
                   <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
                     @csrf

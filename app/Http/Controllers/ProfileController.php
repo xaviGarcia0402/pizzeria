@@ -57,7 +57,7 @@ class ProfileController extends Controller{
 
     $validator = Validator::make($request->all(), $validaciones, $this->errores);
      if ($validator->fails()) {
-         return redirect(route('profile.update', ['#pass']))->withErrors($validator)->withInput();
+       return redirect(route('profile.update', ['#pass']))->withErrors($validator)->withInput();
      }
 
     $user = \Auth::user();
@@ -70,5 +70,27 @@ class ProfileController extends Controller{
 
     return redirect()->route('profile.index')->with("status", 'Contraseña actualizada');
   }// /pass
+
+
+  public function update_avatar(Request $request){
+    $validaciones = [
+      'avatar' => 'required|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+    ];
+    $validator = Validator::make($request->all(), $validaciones, $this->errores);
+     if ($validator->fails()) {
+       return redirect(route('profile.update', ['#foto']))->withErrors($validator);
+     }
+
+    $user = \Auth::user();
+
+    $avatarName = $user->id.'_avatar'.time().'.'.request()->avatar->getClientOriginalExtension();
+
+    $request->avatar->storeAs('avatars', $avatarName);
+
+    $user->avatar = $avatarName;
+    $user->save();
+
+    return redirect()->route('profile.index', ['#foto'])->with("status", 'Foto actualizada');
+  }// /update_avatar
 
 }

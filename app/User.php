@@ -14,7 +14,7 @@ class User extends Authenticatable{
     use SoftDeletes;
 
     use LogsActivity;
-    protected static $logAttributes = ['name', 'email', 'deleted_at'];
+    protected static $logAttributes = ['name', 'email', 'avatar', 'deleted_at'];
     protected static $logOnlyDirty = true;
 
     public function authorizeRoles($roles){
