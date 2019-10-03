@@ -8,6 +8,8 @@ Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
+Route::resource('/notas', 'NotaController')->middleware(['auth', 'role:notas']);
+
 Route::group(['prefix' => 'profile', 'middleware' => ['auth']], function(){
   Route::get('/', 'ProfileController@index')->name('profile.index');
   Route::put('/', 'ProfileController@update')->name('profile.update');

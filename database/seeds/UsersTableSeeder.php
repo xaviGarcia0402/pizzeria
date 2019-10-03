@@ -17,6 +17,7 @@ class UsersTableSeeder extends Seeder
 
       $role_user = Role::where('name', 'user')->first();
       $role_admin = Role::where('name', 'admin')->first();
+      $role_notas = Role::where('name', 'notas')->first();
 
       $user = new User();
       $user->name = 'User';
@@ -31,6 +32,7 @@ class UsersTableSeeder extends Seeder
       $admin->password = bcrypt('secret');
       $admin->save();
       $admin->roles()->attach($role_admin);
+      $admin->roles()->attach($role_notas);
 
       $admin = new User();
       $admin->name = 'Inactivo';
@@ -38,6 +40,7 @@ class UsersTableSeeder extends Seeder
       $admin->password = bcrypt('secret');
       $admin->save();
       $admin->roles()->attach($role_user);
+      $admin->roles()->attach($role_notas);
       $admin->delete();
     }
 }

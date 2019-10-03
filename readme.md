@@ -4,6 +4,7 @@
 * Usuarios: creación/edición/desactivación/re-activación
 * Roles: creación/edición
 * Roles a usuarios: asignar/quitar
+* Módulo de notas (Vue) solo accesible con rol "notas"
 * Perfil del usuario: datos, foto y contraseña
 * Logs: registro de sucesos
 
@@ -44,6 +45,7 @@
 * https://medium.com/@cvallejo/middleware-roles-en-laravel-5-6-87541406426f
 * https://laraveldaily.com/save-users-last-login-time-ip-address/
 * https://www.5balloons.info/upload-profile-picture-avatar-laravel-5-authentication/
+* https://bluuweb.github.io/tutorial-laravel/vue/#componente-con-vue-js
 
 ### Librerías externas usadas
 * https://github.com/spatie/laravel-activitylog
@@ -72,4 +74,6 @@ $ php artisan vendor:publish --provider="Spatie\Activitylog\ActivitylogServicePr
 $ php artisan make:controller Admin/LogsController
 $ php artisan make:controller ProfileController
 $ php artisan storage:link
+$ php artisan make:model Nota -m
+$ php artisan make:controller NotaController --resource
 ```
