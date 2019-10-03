@@ -1,19 +1,19 @@
-<style scoped>
+<style lang="scss" scoped>
 .list-group-item{
   position: relative;
-}
-.list-group-item:hover{
-  background-color: #efffef;
-}
-.list-group-item:hover .botones{
-  opacity: 1;
-}
-.botones{
-  position: absolute;
-  right: 10px;
-  bottom: 10px;
-  opacity: 0;
-  transition: .5s;
+  &:hover{
+    background-color: #efffef;
+    .botones{
+      opacity: 1;
+    }
+  }
+  .botones{
+    position: absolute;
+    right: 10px;
+    bottom: 10px;
+    opacity: 0;
+    transition: .5s;
+  }
 }
 </style>
 <template>
