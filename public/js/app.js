@@ -1931,6 +1931,11 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -6472,7 +6477,7 @@ exports = module.exports = __webpack_require__(/*! ../../../node_modules/css-loa
 
 
 // module
-exports.push([module.i, "\n.list-group-item[data-v-35ac893a]{\n  position: relative;\n}\n.list-group-item:hover .botones[data-v-35ac893a]{\n  opacity: 1;\n}\n.botones[data-v-35ac893a]{\n  position: absolute;\n  right: 10px;\n  bottom: 10px;\n  opacity: 0;\n  transition: .5s;\n}\n", ""]);
+exports.push([module.i, "\n.list-group-item[data-v-35ac893a]{\n  position: relative;\n}\n.list-group-item[data-v-35ac893a]:hover{\n  background-color: #efffef;\n}\n.list-group-item:hover .botones[data-v-35ac893a]{\n  opacity: 1;\n}\n.botones[data-v-35ac893a]{\n  position: absolute;\n  right: 10px;\n  bottom: 10px;\n  opacity: 0;\n  transition: .5s;\n}\n", ""]);
 
 // exports
 
@@ -38047,7 +38052,7 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _c("input", {
+                    _c("textarea", {
                       directives: [
                         {
                           name: "model",
@@ -38058,7 +38063,7 @@ var render = function() {
                       ],
                       staticClass: "form-control mb-2",
                       attrs: {
-                        type: "text",
+                        rows: "3",
                         placeholder: "Descripción de la nota"
                       },
                       domProps: { value: _vm.nota.descripcion },
@@ -38075,20 +38080,20 @@ var render = function() {
                     _c(
                       "button",
                       {
-                        staticClass: "btn btn-warning",
+                        staticClass: "btn btn-outline-info",
                         attrs: { type: "submit" }
                       },
-                      [_vm._v("Editar")]
+                      [_vm._v("Guardar")]
                     ),
                     _vm._v(" "),
                     _c(
                       "button",
                       {
-                        staticClass: "btn btn-danger",
+                        staticClass: "btn btn-outline-warning float-right",
                         attrs: { type: "submit" },
                         on: { click: _vm.cancelarEdicion }
                       },
-                      [_vm._v("Cancelar")]
+                      [_c("i", { staticClass: "fa fa-times" })]
                     )
                   ]
                 )
@@ -38125,7 +38130,7 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _c("input", {
+                    _c("textarea", {
                       directives: [
                         {
                           name: "model",
@@ -38136,7 +38141,7 @@ var render = function() {
                       ],
                       staticClass: "form-control mb-2",
                       attrs: {
-                        type: "text",
+                        rows: "3",
                         placeholder: "Descripción de la nota"
                       },
                       domProps: { value: _vm.nota.descripcion },
@@ -38150,14 +38155,7 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-primary",
-                        attrs: { type: "submit" }
-                      },
-                      [_vm._v("Agregar")]
-                    )
+                    _vm._m(0)
                   ]
                 )
           ])
@@ -38179,9 +38177,14 @@ var render = function() {
                 _vm._v(" "),
                 _c("h4", [_vm._v(_vm._s(item.nombre))]),
                 _vm._v(" "),
-                _c("p", { staticClass: "text-muted mb-0" }, [
-                  _vm._v(_vm._s(item.descripcion))
-                ]),
+                _c(
+                  "p",
+                  {
+                    staticClass: "text-muted mb-0",
+                    staticStyle: { "white-space": "pre" }
+                  },
+                  [_vm._v(_vm._s(item.descripcion))]
+                ),
                 _vm._v(" "),
                 _c("div", { staticClass: "botones" }, [
                   _c(
@@ -38219,7 +38222,20 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = []
+var staticRenderFns = [
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("div", { staticClass: "text-center" }, [
+      _c(
+        "button",
+        { staticClass: "btn btn-outline-primary", attrs: { type: "submit" } },
+        [_vm._v("Agregar")]
+      )
+    ])
+  }
+]
 render._withStripped = true
 
 

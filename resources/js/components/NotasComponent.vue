@@ -2,6 +2,9 @@
 .list-group-item{
   position: relative;
 }
+.list-group-item:hover{
+  background-color: #efffef;
+}
 .list-group-item:hover .botones{
   opacity: 1;
 }
@@ -26,14 +29,16 @@
           <div class="card-body">
             <form @submit.prevent="editarNota(nota)" v-if="modoEditar">
               <input type="text" class="form-control mb-2" placeholder="Nombre de la nota" v-model="nota.nombre">
-              <input type="text" class="form-control mb-2" placeholder="Descripción de la nota" v-model="nota.descripcion">
-              <button class="btn btn-warning" type="submit">Editar</button>
-              <button class="btn btn-danger" type="submit" @click="cancelarEdicion">Cancelar</button>
+              <textarea v-model="nota.descripcion" rows="3" class="form-control mb-2" placeholder="Descripción de la nota"></textarea>
+              <button class="btn btn-outline-info" type="submit">Guardar</button>
+              <button class="btn btn-outline-warning float-right" type="submit" @click="cancelarEdicion"><i class="fa fa-times"></i></button>
             </form>
             <form @submit.prevent="agregar" v-else>
               <input type="text" class="form-control mb-2" placeholder="Nombre de la nota" v-model="nota.nombre">
-              <input type="text" class="form-control mb-2" placeholder="Descripción de la nota" v-model="nota.descripcion">
-              <button class="btn btn-primary" type="submit">Agregar</button>
+              <textarea v-model="nota.descripcion" rows="3" class="form-control mb-2" placeholder="Descripción de la nota"></textarea>
+              <div class="text-center">
+                <button class="btn btn-outline-primary" type="submit">Agregar</button>
+              </div>
             </form>
           </div><!-- /.card-body -->
         </div><!-- /.card -->
@@ -45,7 +50,7 @@
             <li class="list-group-item" v-for="(item, index) in notas" :key="index">
               <span class="badge badge-light float-right">{{item.updated_at}}</span>
               <h4>{{item.nombre}}</h4>
-              <p class="text-muted mb-0">{{item.descripcion}}</p>
+              <p class="text-muted mb-0" style="white-space: pre;">{{item.descripcion}}</p>
               <div class="botones">
                 <button class="btn btn-outline-info btn-sm" @click="editarFormulario(item)">Editar</button>
                 <button class="btn btn-outline-danger btn-sm" @click="eliminarNota(item, index)"><i class="fa fa-trash"></i></button>
