@@ -40,9 +40,10 @@
           <!-- Left Side Of Navbar -->
           <ul class="navbar-nav mr-auto">
             @auth
-              <li class="nav-item">
-                <a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a>
-              </li>
+              <li class="nav-item"><a class="nav-link" href="{{ route('home') }}">{{ __('Home') }}</a></li>
+              @if(Auth::user()->hasRole('notas'))
+                <li class="nav-item"><a class="nav-link" href="{{ route('notas.index') }}">Notas</a></li>
+              @endif
             @endauth
           </ul>
 
