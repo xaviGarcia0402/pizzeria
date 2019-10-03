@@ -28,6 +28,9 @@ class NotaController extends Controller{
 
 
     public function store(Request $request){
+      if($request->nombre == "a"){
+        return response()->json(["errores" => ["Error 1", "Error 2"]], 422);
+      }
       $nota = new Nota();
       $nota->nombre = $request->nombre;
       $nota->descripcion = $request->descripcion;

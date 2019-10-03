@@ -40,7 +40,11 @@
                 <button class="btn btn-outline-primary" type="submit">Agregar</button>
               </div>
             </form>
+            <ul class="alert alert-warning mt-3 mb-0" v-if="errores">
+              <li v-for="(value, key, index) in errores">{{ value }}</li>
+            </ul>
           </div><!-- /.card-body -->
+          <div class="overlay" v-if="cargando"><i class="fa fa-2x fa-refresh fa-spin"></i></div>
         </div><!-- /.card -->
       </div><!-- /.col -->
       <div class="col-md-8">
@@ -69,7 +73,9 @@ export default{
     return {
       notas: [],
       modoEditar: false,
-      nota: {nombre: '', descripcion: ''}
+      nota: {nombre: '', descripcion: ''},
+      errores: false,
+      cargando: false,
     }
   },
   created(){
@@ -83,12 +89,27 @@ export default{
         alert('Debes completar todos los campos antes de guardar');
         return;
       }
+      this.errores = false;
+      this.cargando = true;
       const notaNueva = this.nota;
-      this.nota = {nombre: '', descripcion: ''};
       axios.post('/notas', notaNueva)
-        .then((res) =>{
+        .then((res) => {
           const notaServidor = res.data;
           this.notas.push(notaServidor);
+          this.nota = {nombre: '', descripcion: ''};
+        })
+        .catch((error) => {
+          console.log(error.response);
+          console.log(error);
+          if(error.response && error.response.status == 422){
+            this.errores = error.response.data.errores;
+          }
+          else{
+            alert(error);
+          }
+        })
+        .finally(() => {
+          this.cargando = false;
         })
     },
     editarFormulario(item){

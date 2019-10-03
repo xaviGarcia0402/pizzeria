@@ -1936,6 +1936,10 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1944,7 +1948,9 @@ __webpack_require__.r(__webpack_exports__);
       nota: {
         nombre: '',
         descripcion: ''
-      }
+      },
+      errores: false,
+      cargando: false
     };
   },
   created: function created() {
@@ -1963,15 +1969,29 @@ __webpack_require__.r(__webpack_exports__);
         return;
       }
 
+      this.errores = false;
+      this.cargando = true;
       var notaNueva = this.nota;
-      this.nota = {
-        nombre: '',
-        descripcion: ''
-      };
       axios.post('/notas', notaNueva).then(function (res) {
         var notaServidor = res.data;
 
         _this2.notas.push(notaServidor);
+
+        _this2.nota = {
+          nombre: '',
+          descripcion: ''
+        };
+      })["catch"](function (error) {
+        console.log(error.response);
+        console.log(error);
+
+        if (error.response && error.response.status == 422) {
+          _this2.errores = error.response.data.errores;
+        } else {
+          alert(error);
+        }
+      })["finally"](function () {
+        _this2.cargando = false;
       });
     },
     editarFormulario: function editarFormulario(item) {
@@ -38157,8 +38177,25 @@ var render = function() {
                     _vm._v(" "),
                     _vm._m(0)
                   ]
+                ),
+            _vm._v(" "),
+            _vm.errores
+              ? _c(
+                  "ul",
+                  { staticClass: "alert alert-warning mt-3 mb-0" },
+                  _vm._l(_vm.errores, function(value, key, index) {
+                    return _c("li", [_vm._v(_vm._s(value))])
+                  }),
+                  0
                 )
-          ])
+              : _vm._e()
+          ]),
+          _vm._v(" "),
+          _vm.cargando
+            ? _c("div", { staticClass: "overlay" }, [
+                _c("i", { staticClass: "fa fa-2x fa-refresh fa-spin" })
+              ])
+            : _vm._e()
         ])
       ]),
       _vm._v(" "),
