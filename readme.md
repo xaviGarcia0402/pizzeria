@@ -28,11 +28,14 @@
 * `php artisan storage:link`
 * `php artisan serve` crear servior en http://localhost:8000/
 
-
 ## Usuario administrador
 | Email | Contraseña |
 |---|---|
 | `admin@example.com` | `secret` |
+
+## Instrucciones para desarrollo frontend
+* `npm i`
+* `npm run watch` o `npm run dev`
 
 ## Por hacer
 - [ ] Paginación de los usuarios/roles
