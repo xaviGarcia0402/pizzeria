@@ -112,13 +112,11 @@ export default{
       this.modoEditar = true;
     },// /editarFormulario
 
-
     guardarNota(){
       if(! this.validar()){ return false; }
       this.cargando = true;
       const notaNueva = this.nota;
       let method = 'post';
-      // axios.post('/notas', notaNueva)
       axios({
          method: this.nota.id ? 'put' : 'post',
          url: this.nota.id ? `/notas/${this.nota.id}` : '/notas',
