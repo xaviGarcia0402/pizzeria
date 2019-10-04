@@ -28,21 +28,42 @@
           </div>
           <div class="card-body">
             <form @submit.prevent="editarNota(nota)" v-if="modoEditar">
-              <input type="text" class="form-control mb-2" placeholder="Nombre de la nota" v-model="nota.nombre">
-              <textarea v-model="nota.descripcion" rows="3" class="form-control mb-2" placeholder="Descripción de la nota"></textarea>
+              <input
+                v-bind:class="{'is-invalid': errors.nombre}"
+                type="text"
+                class="form-control mb-2"
+                placeholder="Nombre de la nota"
+                v-model="nota.nombre">
+              <div class="invalid-feedback mb-2 mt-n1" v-if="errors.nombre">{{ errors.nombre }}</div>
+              <textarea
+                v-bind:class="{'is-invalid': errors.descripcion}"
+                v-model="nota.descripcion"
+                rows="3"
+                class="form-control mb-2"
+                placeholder="Descripción de la nota"></textarea>
+              <div class="invalid-feedback mb-2 mt-n1" v-if="errors.descripcion">{{ errors.descripcion }}</div>
               <button class="btn btn-outline-info" type="submit">Guardar</button>
               <button class="btn btn-outline-warning float-right" type="submit" @click="cancelarEdicion"><i class="fa fa-times"></i></button>
             </form>
             <form @submit.prevent="agregar" v-else>
-              <input type="text" class="form-control mb-2" placeholder="Nombre de la nota" v-model="nota.nombre">
-              <textarea v-model="nota.descripcion" rows="3" class="form-control mb-2" placeholder="Descripción de la nota"></textarea>
+              <input
+                v-bind:class="{'is-invalid': errors.nombre}"
+                type="text"
+                class="form-control mb-2"
+                placeholder="Nombre de la nota"
+                v-model="nota.nombre">
+              <div class="invalid-feedback mb-2 mt-n1" v-if="errors.nombre">{{ errors.nombre }}</div>
+              <textarea
+                v-bind:class="{'is-invalid': errors.descripcion}"
+                v-model="nota.descripcion"
+                rows="3"
+                class="form-control mb-2"
+                placeholder="Descripción de la nota"></textarea>
+              <div class="invalid-feedback mb-2 mt-n1" v-if="errors.descripcion">{{ errors.descripcion }}</div>
               <div class="text-center">
                 <button class="btn btn-outline-primary" type="submit">Agregar</button>
               </div>
             </form>
-            <ul class="alert alert-warning mt-3 mb-0" v-if="errores">
-              <li v-for="(value, key, index) in errores">{{ value }}</li>
-            </ul>
           </div><!-- /.card-body -->
           <div class="overlay" v-if="cargando"><i class="fa fa-2x fa-refresh fa-spin"></i></div>
         </div><!-- /.card -->
@@ -69,27 +90,35 @@
 
 <script>
 export default{
+
   data(){
     return {
       notas: [],
       modoEditar: false,
       nota: {nombre: '', descripcion: ''},
-      errores: false,
+      errors: [],
       cargando: false,
     }
   },
+
   created(){
     axios.get('/notas').then(res=>{
       this.notas = res.data;
     })
   },
+
   methods:{
+
+    validar(){
+      this.errors = [];
+      if(this.nota.nombre.trim() === ''){ this.errors["nombre"] = "El nombre es requerido"; }
+      if(this.nota.descripcion.trim() === ''){ this.errors["descripcion"] = "Descripción requerida"; }
+      if( Object.keys(this.errors).length ){ return false; }
+      return true;
+    },// /validar
+
     agregar(){
-      if(this.nota.nombre.trim() === '' || this.nota.descripcion.trim() === ''){
-        alert('Debes completar todos los campos antes de guardar');
-        return;
-      }
-      this.errores = false;
+      if(! this.validar()){ return false; }
       this.cargando = true;
       const notaNueva = this.nota;
       axios.post('/notas', notaNueva)
@@ -99,10 +128,12 @@ export default{
           this.nota = {nombre: '', descripcion: ''};
         })
         .catch((error) => {
-          console.log(error.response);
-          console.log(error);
           if(error.response && error.response.status == 422){
-            this.errores = error.response.data.errores;
+            // this.errors = error.response.data.errors;
+            Object.keys(error.response.data.errors).forEach(k => {
+              this.errors[k] = error.response.data.errors[k][0];
+            });
+            console.log(this.errors);
           }
           else{
             alert(error);
@@ -110,23 +141,43 @@ export default{
         })
         .finally(() => {
           this.cargando = false;
-        })
-    },
+        });
+    },// /agregar
+
     editarFormulario(item){
+      this.errors = [];
       this.nota.nombre = item.nombre;
       this.nota.descripcion = item.descripcion;
       this.nota.id = item.id;
       this.modoEditar = true;
-    },
+    },// /editarFormulario
+
     editarNota(nota){
+      if(! this.validar()){ return false; }
       const params = {nombre: nota.nombre, descripcion: nota.descripcion};
+      this.cargando = true;
       axios.put(`/notas/${nota.id}`, params)
         .then(res=>{
           this.modoEditar = false;
           const index = this.notas.findIndex(item => item.id === nota.id);
           this.notas[index] = res.data;
         })
-    },
+        .catch((error) => {
+          // console.log(error.response.data);
+          if(error.response && error.response.status == 422){
+            Object.keys(error.response.data.errors).forEach(k => {
+              this.errors[k] = error.response.data.errors[k][0];
+            });
+          }
+          else{
+            alert(error);
+          }
+        })
+        .finally(() => {
+          this.cargando = false;
+        });
+    },// /editarNota
+
     eliminarNota(nota, index){
       const confirmacion = confirm(`Eliminar nota ${nota.nombre}`);
       if(confirmacion){
@@ -136,10 +187,14 @@ export default{
           })
       }
     },
+
     cancelarEdicion(){
+      this.errors = [];
       this.modoEditar = false;
       this.nota = {nombre: '', descripcion: ''};
     }
-  }
-}
+
+  }// /methods
+
+}// /export
 </script>

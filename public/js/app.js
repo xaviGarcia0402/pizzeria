@@ -1940,6 +1940,27 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
+//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1949,7 +1970,7 @@ __webpack_require__.r(__webpack_exports__);
         nombre: '',
         descripcion: ''
       },
-      errores: false,
+      errors: [],
       cargando: false
     };
   },
@@ -1961,15 +1982,31 @@ __webpack_require__.r(__webpack_exports__);
     });
   },
   methods: {
+    validar: function validar() {
+      this.errors = [];
+
+      if (this.nota.nombre.trim() === '') {
+        this.errors["nombre"] = "El nombre es requerido";
+      }
+
+      if (this.nota.descripcion.trim() === '') {
+        this.errors["descripcion"] = "Descripción requerida";
+      }
+
+      if (Object.keys(this.errors).length) {
+        return false;
+      }
+
+      return true;
+    },
+    // /validar
     agregar: function agregar() {
       var _this2 = this;
 
-      if (this.nota.nombre.trim() === '' || this.nota.descripcion.trim() === '') {
-        alert('Debes completar todos los campos antes de guardar');
-        return;
+      if (!this.validar()) {
+        return false;
       }
 
-      this.errores = false;
       this.cargando = true;
       var notaNueva = this.nota;
       axios.post('/notas', notaNueva).then(function (res) {
@@ -1982,11 +2019,12 @@ __webpack_require__.r(__webpack_exports__);
           descripcion: ''
         };
       })["catch"](function (error) {
-        console.log(error.response);
-        console.log(error);
-
         if (error.response && error.response.status == 422) {
-          _this2.errores = error.response.data.errores;
+          // this.errors = error.response.data.errors;
+          Object.keys(error.response.data.errors).forEach(function (k) {
+            _this2.errors[k] = error.response.data.errors[k][0];
+          });
+          console.log(_this2.errors);
         } else {
           alert(error);
         }
@@ -1994,19 +2032,27 @@ __webpack_require__.r(__webpack_exports__);
         _this2.cargando = false;
       });
     },
+    // /agregar
     editarFormulario: function editarFormulario(item) {
+      this.errors = [];
       this.nota.nombre = item.nombre;
       this.nota.descripcion = item.descripcion;
       this.nota.id = item.id;
       this.modoEditar = true;
     },
+    // /editarFormulario
     editarNota: function editarNota(nota) {
       var _this3 = this;
+
+      if (!this.validar()) {
+        return false;
+      }
 
       var params = {
         nombre: nota.nombre,
         descripcion: nota.descripcion
       };
+      this.cargando = true;
       axios.put("/notas/".concat(nota.id), params).then(function (res) {
         _this3.modoEditar = false;
 
@@ -2015,8 +2061,20 @@ __webpack_require__.r(__webpack_exports__);
         });
 
         _this3.notas[index] = res.data;
+      })["catch"](function (error) {
+        // console.log(error.response.data);
+        if (error.response && error.response.status == 422) {
+          Object.keys(error.response.data.errors).forEach(function (k) {
+            _this3.errors[k] = error.response.data.errors[k][0];
+          });
+        } else {
+          alert(error);
+        }
+      })["finally"](function () {
+        _this3.cargando = false;
       });
     },
+    // /editarNota
     eliminarNota: function eliminarNota(nota, index) {
       var _this4 = this;
 
@@ -2029,6 +2087,7 @@ __webpack_require__.r(__webpack_exports__);
       }
     },
     cancelarEdicion: function cancelarEdicion() {
+      this.errors = [];
       this.modoEditar = false;
       this.nota = {
         nombre: '',
@@ -2036,7 +2095,7 @@ __webpack_require__.r(__webpack_exports__);
       };
     }
   }
-});
+}); // /export
 
 /***/ }),
 
@@ -38060,6 +38119,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control mb-2",
+                      class: { "is-invalid": _vm.errors.nombre },
                       attrs: { type: "text", placeholder: "Nombre de la nota" },
                       domProps: { value: _vm.nota.nombre },
                       on: {
@@ -38072,6 +38132,14 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
+                    _vm.errors.nombre
+                      ? _c(
+                          "div",
+                          { staticClass: "invalid-feedback mb-2 mt-n1" },
+                          [_vm._v(_vm._s(_vm.errors.nombre))]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
                     _c("textarea", {
                       directives: [
                         {
@@ -38082,6 +38150,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control mb-2",
+                      class: { "is-invalid": _vm.errors.descripcion },
                       attrs: {
                         rows: "3",
                         placeholder: "Descripción de la nota"
@@ -38096,6 +38165,14 @@ var render = function() {
                         }
                       }
                     }),
+                    _vm._v(" "),
+                    _vm.errors.descripcion
+                      ? _c(
+                          "div",
+                          { staticClass: "invalid-feedback mb-2 mt-n1" },
+                          [_vm._v(_vm._s(_vm.errors.descripcion))]
+                        )
+                      : _vm._e(),
                     _vm._v(" "),
                     _c(
                       "button",
@@ -38138,6 +38215,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control mb-2",
+                      class: { "is-invalid": _vm.errors.nombre },
                       attrs: { type: "text", placeholder: "Nombre de la nota" },
                       domProps: { value: _vm.nota.nombre },
                       on: {
@@ -38150,6 +38228,14 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
+                    _vm.errors.nombre
+                      ? _c(
+                          "div",
+                          { staticClass: "invalid-feedback mb-2 mt-n1" },
+                          [_vm._v(_vm._s(_vm.errors.nombre))]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
                     _c("textarea", {
                       directives: [
                         {
@@ -38160,6 +38246,7 @@ var render = function() {
                         }
                       ],
                       staticClass: "form-control mb-2",
+                      class: { "is-invalid": _vm.errors.descripcion },
                       attrs: {
                         rows: "3",
                         placeholder: "Descripción de la nota"
@@ -38175,20 +38262,17 @@ var render = function() {
                       }
                     }),
                     _vm._v(" "),
+                    _vm.errors.descripcion
+                      ? _c(
+                          "div",
+                          { staticClass: "invalid-feedback mb-2 mt-n1" },
+                          [_vm._v(_vm._s(_vm.errors.descripcion))]
+                        )
+                      : _vm._e(),
+                    _vm._v(" "),
                     _vm._m(0)
                   ]
-                ),
-            _vm._v(" "),
-            _vm.errores
-              ? _c(
-                  "ul",
-                  { staticClass: "alert alert-warning mt-3 mb-0" },
-                  _vm._l(_vm.errores, function(value, key, index) {
-                    return _c("li", [_vm._v(_vm._s(value))])
-                  }),
-                  0
                 )
-              : _vm._e()
           ]),
           _vm._v(" "),
           _vm.cargando
@@ -50686,8 +50770,8 @@ __webpack_require__.r(__webpack_exports__);
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-__webpack_require__(/*! /home/gustavom/Documentos/Laravel/laravel6-usuarios/resources/js/app.js */"./resources/js/app.js");
-module.exports = __webpack_require__(/*! /home/gustavom/Documentos/Laravel/laravel6-usuarios/resources/sass/app.scss */"./resources/sass/app.scss");
+__webpack_require__(/*! /home/gux/Documentos/laravel6-usuarios/resources/js/app.js */"./resources/js/app.js");
+module.exports = __webpack_require__(/*! /home/gux/Documentos/laravel6-usuarios/resources/sass/app.scss */"./resources/sass/app.scss");
 
 
 /***/ })
