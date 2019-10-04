@@ -1948,19 +1948,6 @@ __webpack_require__.r(__webpack_exports__);
 //
 //
 //
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
-//
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
     return {
@@ -1968,7 +1955,8 @@ __webpack_require__.r(__webpack_exports__);
       modoEditar: false,
       nota: {
         nombre: '',
-        descripcion: ''
+        descripcion: '',
+        id: 0
       },
       errors: [],
       cargando: false
@@ -2000,39 +1988,6 @@ __webpack_require__.r(__webpack_exports__);
       return true;
     },
     // /validar
-    agregar: function agregar() {
-      var _this2 = this;
-
-      if (!this.validar()) {
-        return false;
-      }
-
-      this.cargando = true;
-      var notaNueva = this.nota;
-      axios.post('/notas', notaNueva).then(function (res) {
-        var notaServidor = res.data;
-
-        _this2.notas.push(notaServidor);
-
-        _this2.nota = {
-          nombre: '',
-          descripcion: ''
-        };
-      })["catch"](function (error) {
-        if (error.response && error.response.status == 422) {
-          // this.errors = error.response.data.errors;
-          Object.keys(error.response.data.errors).forEach(function (k) {
-            _this2.errors[k] = error.response.data.errors[k][0];
-          });
-          console.log(_this2.errors);
-        } else {
-          alert(error);
-        }
-      })["finally"](function () {
-        _this2.cargando = false;
-      });
-    },
-    // /agregar
     editarFormulario: function editarFormulario(item) {
       this.errors = [];
       this.nota.nombre = item.nombre;
@@ -2041,48 +1996,59 @@ __webpack_require__.r(__webpack_exports__);
       this.modoEditar = true;
     },
     // /editarFormulario
-    editarNota: function editarNota(nota) {
-      var _this3 = this;
+    guardarNota: function guardarNota() {
+      var _this2 = this;
 
       if (!this.validar()) {
         return false;
       }
 
-      var params = {
-        nombre: nota.nombre,
-        descripcion: nota.descripcion
-      };
       this.cargando = true;
-      axios.put("/notas/".concat(nota.id), params).then(function (res) {
-        _this3.modoEditar = false;
+      var notaNueva = this.nota;
+      var method = 'post'; // axios.post('/notas', notaNueva)
 
-        var index = _this3.notas.findIndex(function (item) {
-          return item.id === nota.id;
-        });
+      axios({
+        method: this.nota.id ? 'put' : 'post',
+        url: this.nota.id ? "/notas/".concat(this.nota.id) : '/notas',
+        data: this.nota
+      }).then(function (res) {
+        if (_this2.nota.id) {
+          var index = _this2.notas.findIndex(function (item) {
+            return item.id === _this2.nota.id;
+          });
 
-        _this3.notas[index] = res.data;
+          _this2.notas[index] = res.data;
+        } else {
+          _this2.notas.push(res.data);
+
+          _this2.nota = {
+            nombre: '',
+            descripcion: '',
+            id: 0
+          };
+        }
       })["catch"](function (error) {
-        // console.log(error.response.data);
         if (error.response && error.response.status == 422) {
           Object.keys(error.response.data.errors).forEach(function (k) {
-            _this3.errors[k] = error.response.data.errors[k][0];
+            _this2.errors[k] = error.response.data.errors[k][0];
           });
         } else {
+          // Error desconocido
           alert(error);
         }
       })["finally"](function () {
-        _this3.cargando = false;
+        _this2.cargando = false;
       });
     },
-    // /editarNota
+    // /guardarNota
     eliminarNota: function eliminarNota(nota, index) {
-      var _this4 = this;
+      var _this3 = this;
 
       var confirmacion = confirm("Eliminar nota ".concat(nota.nombre));
 
       if (confirmacion) {
         axios["delete"]("/notas/".concat(nota.id)).then(function () {
-          _this4.notas.splice(index, 1);
+          _this3.notas.splice(index, 1);
         });
       }
     },
@@ -2091,7 +2057,8 @@ __webpack_require__.r(__webpack_exports__);
       this.modoEditar = false;
       this.nota = {
         nombre: '',
-        descripcion: ''
+        descripcion: '',
+        id: 0
       };
     }
   }
@@ -38097,182 +38064,129 @@ var render = function() {
           ]),
           _vm._v(" "),
           _c("div", { staticClass: "card-body" }, [
-            _vm.modoEditar
-              ? _c(
-                  "form",
-                  {
-                    on: {
-                      submit: function($event) {
-                        $event.preventDefault()
-                        return _vm.editarNota(_vm.nota)
-                      }
+            _c(
+              "form",
+              {
+                on: {
+                  submit: function($event) {
+                    $event.preventDefault()
+                    return _vm.guardarNota($event)
+                  }
+                }
+              },
+              [
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.nota.id,
+                      expression: "nota.id"
                     }
-                  },
-                  [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.nota.nombre,
-                          expression: "nota.nombre"
-                        }
-                      ],
-                      staticClass: "form-control mb-2",
-                      class: { "is-invalid": _vm.errors.nombre },
-                      attrs: { type: "text", placeholder: "Nombre de la nota" },
-                      domProps: { value: _vm.nota.nombre },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.nota, "nombre", $event.target.value)
-                        }
+                  ],
+                  attrs: { type: "hidden" },
+                  domProps: { value: _vm.nota.id },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
                       }
-                    }),
-                    _vm._v(" "),
-                    _vm.errors.nombre
-                      ? _c(
-                          "div",
-                          { staticClass: "invalid-feedback mb-2 mt-n1" },
-                          [_vm._v(_vm._s(_vm.errors.nombre))]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c("textarea", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.nota.descripcion,
-                          expression: "nota.descripcion"
-                        }
-                      ],
-                      staticClass: "form-control mb-2",
-                      class: { "is-invalid": _vm.errors.descripcion },
-                      attrs: {
-                        rows: "3",
-                        placeholder: "Descripción de la nota"
-                      },
-                      domProps: { value: _vm.nota.descripcion },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.nota, "descripcion", $event.target.value)
-                        }
-                      }
-                    }),
-                    _vm._v(" "),
-                    _vm.errors.descripcion
-                      ? _c(
-                          "div",
-                          { staticClass: "invalid-feedback mb-2 mt-n1" },
-                          [_vm._v(_vm._s(_vm.errors.descripcion))]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-outline-info",
-                        attrs: { type: "submit" }
-                      },
-                      [_vm._v("Guardar")]
-                    ),
-                    _vm._v(" "),
-                    _c(
-                      "button",
-                      {
-                        staticClass: "btn btn-outline-warning float-right",
-                        attrs: { type: "submit" },
-                        on: { click: _vm.cancelarEdicion }
-                      },
-                      [_c("i", { staticClass: "fa fa-times" })]
-                    )
-                  ]
-                )
-              : _c(
-                  "form",
-                  {
-                    on: {
-                      submit: function($event) {
-                        $event.preventDefault()
-                        return _vm.agregar($event)
-                      }
+                      _vm.$set(_vm.nota, "id", $event.target.value)
                     }
-                  },
-                  [
-                    _c("input", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.nota.nombre,
-                          expression: "nota.nombre"
-                        }
-                      ],
-                      staticClass: "form-control mb-2",
-                      class: { "is-invalid": _vm.errors.nombre },
-                      attrs: { type: "text", placeholder: "Nombre de la nota" },
-                      domProps: { value: _vm.nota.nombre },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.nota, "nombre", $event.target.value)
-                        }
+                  }
+                }),
+                _vm._v(" "),
+                _c("input", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.nota.nombre,
+                      expression: "nota.nombre"
+                    }
+                  ],
+                  staticClass: "form-control mb-2",
+                  class: { "is-invalid": _vm.errors.nombre },
+                  attrs: { type: "text", placeholder: "Nombre de la nota" },
+                  domProps: { value: _vm.nota.nombre },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
                       }
-                    }),
-                    _vm._v(" "),
-                    _vm.errors.nombre
-                      ? _c(
-                          "div",
-                          { staticClass: "invalid-feedback mb-2 mt-n1" },
-                          [_vm._v(_vm._s(_vm.errors.nombre))]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _c("textarea", {
-                      directives: [
-                        {
-                          name: "model",
-                          rawName: "v-model",
-                          value: _vm.nota.descripcion,
-                          expression: "nota.descripcion"
-                        }
-                      ],
-                      staticClass: "form-control mb-2",
-                      class: { "is-invalid": _vm.errors.descripcion },
-                      attrs: {
-                        rows: "3",
-                        placeholder: "Descripción de la nota"
-                      },
-                      domProps: { value: _vm.nota.descripcion },
-                      on: {
-                        input: function($event) {
-                          if ($event.target.composing) {
-                            return
-                          }
-                          _vm.$set(_vm.nota, "descripcion", $event.target.value)
-                        }
+                      _vm.$set(_vm.nota, "nombre", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.errors.nombre
+                  ? _c("div", { staticClass: "invalid-feedback mb-2 mt-n1" }, [
+                      _vm._v(_vm._s(_vm.errors.nombre))
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _c("textarea", {
+                  directives: [
+                    {
+                      name: "model",
+                      rawName: "v-model",
+                      value: _vm.nota.descripcion,
+                      expression: "nota.descripcion"
+                    }
+                  ],
+                  staticClass: "form-control mb-2",
+                  class: { "is-invalid": _vm.errors.descripcion },
+                  attrs: { rows: "3", placeholder: "Descripción de la nota" },
+                  domProps: { value: _vm.nota.descripcion },
+                  on: {
+                    input: function($event) {
+                      if ($event.target.composing) {
+                        return
                       }
-                    }),
-                    _vm._v(" "),
-                    _vm.errors.descripcion
-                      ? _c(
-                          "div",
-                          { staticClass: "invalid-feedback mb-2 mt-n1" },
-                          [_vm._v(_vm._s(_vm.errors.descripcion))]
-                        )
-                      : _vm._e(),
-                    _vm._v(" "),
-                    _vm._m(0)
-                  ]
-                )
+                      _vm.$set(_vm.nota, "descripcion", $event.target.value)
+                    }
+                  }
+                }),
+                _vm._v(" "),
+                _vm.errors.descripcion
+                  ? _c("div", { staticClass: "invalid-feedback mb-2 mt-n1" }, [
+                      _vm._v(_vm._s(_vm.errors.descripcion))
+                    ])
+                  : _vm._e(),
+                _vm._v(" "),
+                _vm.modoEditar
+                  ? _c("div", [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-outline-info",
+                          attrs: { type: "submit" }
+                        },
+                        [_vm._v("Guardar")]
+                      ),
+                      _vm._v(" "),
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-outline-warning float-right",
+                          attrs: { type: "submit" },
+                          on: { click: _vm.cancelarEdicion }
+                        },
+                        [_c("i", { staticClass: "fa fa-times" })]
+                      )
+                    ])
+                  : _c("div", { staticClass: "text-center" }, [
+                      _c(
+                        "button",
+                        {
+                          staticClass: "btn btn-outline-primary",
+                          attrs: { type: "submit" }
+                        },
+                        [_vm._v("Agregar")]
+                      )
+                    ])
+              ]
+            )
           ]),
           _vm._v(" "),
           _vm.cargando
@@ -38343,20 +38257,7 @@ var render = function() {
     ])
   ])
 }
-var staticRenderFns = [
-  function() {
-    var _vm = this
-    var _h = _vm.$createElement
-    var _c = _vm._self._c || _h
-    return _c("div", { staticClass: "text-center" }, [
-      _c(
-        "button",
-        { staticClass: "btn btn-outline-primary", attrs: { type: "submit" } },
-        [_vm._v("Agregar")]
-      )
-    ])
-  }
-]
+var staticRenderFns = []
 render._withStripped = true
 
 

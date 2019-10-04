@@ -27,7 +27,8 @@
             Nota
           </div>
           <div class="card-body">
-            <form @submit.prevent="editarNota(nota)" v-if="modoEditar">
+            <form @submit.prevent="guardarNota">
+              <input type="hidden" v-model="nota.id">
               <input
                 v-bind:class="{'is-invalid': errors.nombre}"
                 type="text"
@@ -42,25 +43,11 @@
                 class="form-control mb-2"
                 placeholder="Descripción de la nota"></textarea>
               <div class="invalid-feedback mb-2 mt-n1" v-if="errors.descripcion">{{ errors.descripcion }}</div>
-              <button class="btn btn-outline-info" type="submit">Guardar</button>
-              <button class="btn btn-outline-warning float-right" type="submit" @click="cancelarEdicion"><i class="fa fa-times"></i></button>
-            </form>
-            <form @submit.prevent="agregar" v-else>
-              <input
-                v-bind:class="{'is-invalid': errors.nombre}"
-                type="text"
-                class="form-control mb-2"
-                placeholder="Nombre de la nota"
-                v-model="nota.nombre">
-              <div class="invalid-feedback mb-2 mt-n1" v-if="errors.nombre">{{ errors.nombre }}</div>
-              <textarea
-                v-bind:class="{'is-invalid': errors.descripcion}"
-                v-model="nota.descripcion"
-                rows="3"
-                class="form-control mb-2"
-                placeholder="Descripción de la nota"></textarea>
-              <div class="invalid-feedback mb-2 mt-n1" v-if="errors.descripcion">{{ errors.descripcion }}</div>
-              <div class="text-center">
+              <div v-if="modoEditar">
+                <button class="btn btn-outline-info" type="submit">Guardar</button>
+                <button class="btn btn-outline-warning float-right" type="submit" @click="cancelarEdicion"><i class="fa fa-times"></i></button>
+              </div>
+              <div class="text-center" v-else>
                 <button class="btn btn-outline-primary" type="submit">Agregar</button>
               </div>
             </form>
@@ -95,7 +82,7 @@ export default{
     return {
       notas: [],
       modoEditar: false,
-      nota: {nombre: '', descripcion: ''},
+      nota: {nombre: '', descripcion: '', id: 0},
       errors: [],
       cargando: false,
     }
@@ -117,33 +104,6 @@ export default{
       return true;
     },// /validar
 
-    agregar(){
-      if(! this.validar()){ return false; }
-      this.cargando = true;
-      const notaNueva = this.nota;
-      axios.post('/notas', notaNueva)
-        .then((res) => {
-          const notaServidor = res.data;
-          this.notas.push(notaServidor);
-          this.nota = {nombre: '', descripcion: ''};
-        })
-        .catch((error) => {
-          if(error.response && error.response.status == 422){
-            // this.errors = error.response.data.errors;
-            Object.keys(error.response.data.errors).forEach(k => {
-              this.errors[k] = error.response.data.errors[k][0];
-            });
-            console.log(this.errors);
-          }
-          else{
-            alert(error);
-          }
-        })
-        .finally(() => {
-          this.cargando = false;
-        });
-    },// /agregar
-
     editarFormulario(item){
       this.errors = [];
       this.nota.nombre = item.nombre;
@@ -152,31 +112,42 @@ export default{
       this.modoEditar = true;
     },// /editarFormulario
 
-    editarNota(nota){
+
+    guardarNota(){
       if(! this.validar()){ return false; }
-      const params = {nombre: nota.nombre, descripcion: nota.descripcion};
       this.cargando = true;
-      axios.put(`/notas/${nota.id}`, params)
-        .then(res=>{
-          this.modoEditar = false;
-          const index = this.notas.findIndex(item => item.id === nota.id);
+      const notaNueva = this.nota;
+      let method = 'post';
+      // axios.post('/notas', notaNueva)
+      axios({
+         method: this.nota.id ? 'put' : 'post',
+         url: this.nota.id ? `/notas/${this.nota.id}` : '/notas',
+         data: this.nota,
+      })
+      .then((res) => {
+        if(this.nota.id){
+          const index = this.notas.findIndex(item => item.id === this.nota.id);
           this.notas[index] = res.data;
-        })
-        .catch((error) => {
-          // console.log(error.response.data);
-          if(error.response && error.response.status == 422){
-            Object.keys(error.response.data.errors).forEach(k => {
-              this.errors[k] = error.response.data.errors[k][0];
-            });
-          }
-          else{
-            alert(error);
-          }
-        })
-        .finally(() => {
-          this.cargando = false;
-        });
-    },// /editarNota
+        }
+        else{
+          this.notas.push(res.data);
+          this.nota = {nombre: '', descripcion: '', id: 0};
+        }
+      })
+      .catch((error) => {
+        if(error.response && error.response.status == 422){
+          Object.keys(error.response.data.errors).forEach(k => {
+            this.errors[k] = error.response.data.errors[k][0];
+          });
+        }
+        else{// Error desconocido
+          alert(error);
+        }
+      })
+      .finally(() => {
+        this.cargando = false;
+      });
+    },// /guardarNota
 
     eliminarNota(nota, index){
       const confirmacion = confirm(`Eliminar nota ${nota.nombre}`);
@@ -191,7 +162,7 @@ export default{
     cancelarEdicion(){
       this.errors = [];
       this.modoEditar = false;
-      this.nota = {nombre: '', descripcion: ''};
+      this.nota = {nombre: '', descripcion: '', id: 0};
     }
 
   }// /methods
