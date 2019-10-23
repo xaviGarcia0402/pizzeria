@@ -26,7 +26,7 @@
 * `php artisan migrate`
 * `php artisan db:seed`
 * `php artisan storage:link`
-* `php artisan serve` crear servior en http://localhost:8000/
+* Opcional: `php artisan serve` crear servior en http://localhost:8000/
 
 ## Usuario administrador
 | Email | Contraseña |
