@@ -39,7 +39,8 @@
 * `npm run watch` o `npm run dev`
 
 ## Por hacer
-- [ ] Paginación de los usuarios/roles
+- [x] Paginación de los usuarios
+- [ ] Paginación de los roles
 
 
 ### Proyecto basado en
