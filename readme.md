@@ -52,6 +52,7 @@
 * https://bluuweb.github.io/tutorial-laravel/vue/#componente-con-vue-js
 * https://www.itsolutionstuff.com/post/laravel-58-datatables-tutorialexample.html
 * https://bloggie.io/@jctan/laravel-datatable-installation
+* https://datatables.yajrabox.com/
 
 ### Librerías externas usadas
 * https://github.com/spatie/laravel-activitylog
