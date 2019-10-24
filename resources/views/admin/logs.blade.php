@@ -22,56 +22,33 @@
   <div class="row justify-content-center">
     <div class="col-md-12">
 
-      @if (session('status'))
-        <div class="alert alert-success" role="alert">
-          {{ session('status') }}
-        </div>
-      @endif
-
       <div id="card-roles" class="card mb-2">
         <div class="card-header">
           Logs
         </div><!-- /.card-header -->
 
-        <table class="table table-hover table-striped table-sm mb-0">
-          <thead>
-            <tr>
-              <td style="width: 140px;">Fecha</td>
-              <td>Usuario</td>
-              <td>Tipo</td>
-              <td>Descripción</td>
-              <td>Objetivo</td>
-              <td style="width: 60px;"></td>
-            </tr>
-          </thead>
-          <tbody>
-            @foreach($logs as $log)
+        <div class="card-body p-1">
+          <table class="data-table table table-hover table-striped table-sm mb-0" style="width: 100%">
+            <thead>
               <tr>
-                <td class="align-middle">{{ $log->created_at }}</td>
-                <td class="align-middle">
-                  @if($log->causer)
-                    <img class="border rounded" src="{{ asset('storage/avatars/'.$log->causer->avatar) }}" style="width: 30px" />
-                    {{ $log->causer->name }}
-                  @endif
-                </td>
-                <td class="align-middle">{{ $log->log_name }}</td>
-                <td class="align-middle">{{ $log->description }}</td>
-                <td class="align-middle">{{ $log->subject_type }}</td>
-                <td>
-                  @if(count($log->changes) > 0)
-                    <button class="btn-data btn btn-info btn-sm" type="button" value="{{ base64_encode( json_encode($log->changes) ) }}">Data</button>
-                  @endif
-                </td>
+                <td style="width: 140px;">Fecha</td>
+                <td>Usuario</td>
+                <td>Tipo</td>
+                <td>Descripción</td>
+                <td>Objetivo</td>
+                <td style="width: 60px;"></td>
               </tr>
-            @endforeach
-          </tbody>
-        </table>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div><!-- /.card-body -->
 
         <div class="overlay" style="display: none;"><i class="fa fa-2x fa-refresh fa-spin"></i></div>
 
       </div><!-- /.card -->
 
-      {{ $logs->onEachSide(2)->links() }}
+      {{-- $logs->onEachSide(2)->links() --}}
 
     </div><!-- /.col -->
   </div><!-- /.row -->
@@ -83,6 +60,25 @@
   <script type="text/javascript">
 
     window.addEventListener('load', function(){
+
+      var table = $('.data-table').DataTable({
+        processing: true,
+        serverSide: true,
+        ajax: "{{ route('logs.index') }}",
+        order: [[0, 'desc']],
+        columns: [
+          {data: 'created_at', name: 'created_at', "width": "140px"},
+          {data: 'causer', name: 'causer', orderable: false, searchable: false, },
+          {data: 'log_name', name: 'log_name'},
+          {data: 'description', name: 'description'},
+          {data: 'subject_type', name: 'subject_type'},
+          {data: 'data', name: 'data', orderable: false, searchable: false, "width": "60px" },
+        ],
+        columnDefs: [
+          { className: "align-middle", targets: "_all" }
+        ],
+      });// /DataTable
+
       $(document).on("click", ".btn-data", function(){
         var data = JSON.parse( atob( $(this).val() ) );
         var html =
@@ -93,7 +89,8 @@
          $("#modal_multiusos_lg .modal-body").html(html);
          $("#modal_multiusos_lg").modal();
       });
-    });
+
+    });// /window load
 
     function print_r(o) {
       return JSON.stringify(o,null,'\t').replace(/\n/g,'<br>').replace(/\t/g,'&nbsp;&nbsp;&nbsp;');
