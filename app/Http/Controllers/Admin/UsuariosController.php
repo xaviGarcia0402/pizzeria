@@ -30,6 +30,17 @@ class UsuariosController extends Controller{
       $data = $activos ? User::query() : User::onlyTrashed();
       return
         Datatables::eloquent($data)
+          ->editColumn('name', function(User $user){
+            return '<img class="border rounded" src="'.asset('storage/avatars/'.$user->avatar).'" style="width: 30px" /> '.$user->name;
+          })
+          ->addColumn('roles', function($user){
+            $btn =
+              '<a href="'.route('roles.usuario', ['usuario'=>$user->id]).'" class="btn btn-outline-secondary btn-sm btn-block border-0">'.
+                $user->roles->count().' '.
+                ($user->roles->count() == 1 ? 'Rol' : 'Roles').
+              '</a>';
+            return $btn;
+          })
           ->addColumn('action', function($user){
             $btn =
               '<a href="'.route('usuarios.edit', ['usuario'=>$user->id]).'" class="btn btn-primary btn-sm btn-hover">Editar</a>'.
@@ -41,6 +52,7 @@ class UsuariosController extends Controller{
           ->setRowClass(function ($user) {
             return $user->trashed() ? 'table-warning' : '';
           })
+          ->rawColumns(['name','roles','action'])
           ->make(true);
     }
     return view('admin.usuarios', $data);

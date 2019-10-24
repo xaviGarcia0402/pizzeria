@@ -41,29 +41,6 @@
               </tr>
             </thead>
             <tbody>
-              {{--
-              @foreach($users as $user)
-                <tr class="{{ $user->trashed() ? 'table-warning' : '' }}">
-                  <td class="align-middle">
-                    <img class="border rounded" src="{{ asset('storage/avatars/'.$user->avatar) }}" style="width: 30px" />
-                    {{ $user->name }}
-                  </td>
-                  <td class="align-middle">{{ $user->email }}</td>
-                  <td class="align-middle" style="width: 80px;">
-                    <a href="{{ route('roles.usuario', ['usuario'=>$user->id]) }}" class="btn btn-outline-secondary btn-sm btn-block border-0">
-                      {{ $user->roles->count() }}
-                      {{ $user->roles->count() == 1 ? 'Rol' : 'Roles' }}
-                    </a>
-                  </td>
-                  <td style="width: 120px;">
-                    <a href="{{ route('usuarios.edit', ['usuario'=>$user->id]) }}" class="btn btn-primary btn-sm btn-hover">Editar</a>
-                    <button type="button" class="btn btn-status btn-light btn-sm btn-hover" title="{{ $user->trashed() ? 'Restaurar' : 'Desactivar' }}" data-toggle="tooltip" data-id="{{ $user->id }}" data-name="{{ $user->name }}">
-                      <i class="fa fa-fw fa-{{ $user->trashed() ? 'arrow-up' : 'ban' }}"></i>
-                    </button>
-                  </td>
-                </tr>
-              @endforeach
-              --}}
             </tbody>
           </table>
         </div><!-- /.card-body -->
@@ -90,7 +67,11 @@
         columns: [
           {data: 'name', name: 'name'},
           {data: 'email', name: 'email'},
+          {data: 'roles', name: 'roles', orderable: false, searchable: false, "width": "80px", className: ""},
           {data: 'action', name: 'action', orderable: false, searchable: false, "width": "100px"},
+        ],
+        columnDefs: [
+          { className: "align-middle", targets: "_all" }
         ],
       });// /DataTable
 
