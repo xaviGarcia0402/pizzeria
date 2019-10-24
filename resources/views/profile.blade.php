@@ -115,7 +115,7 @@
                   </div><!-- /.col -->
                 </div><!-- /.form-group -->
               </form>
-            </div><!-- /#foto-tab -->
+            </div><!-- /#pass-tab -->
 
           </div><!-- /.tab-content -->
         </div><!-- /.col -->
