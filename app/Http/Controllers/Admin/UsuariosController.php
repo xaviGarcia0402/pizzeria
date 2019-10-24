@@ -5,6 +5,7 @@ use App\Http\Controllers\Controller;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use Yajra\DataTables\Facades\DataTables;
 use App\User;
 use App\Role;
 
@@ -20,22 +21,30 @@ class UsuariosController extends Controller{
     ];
   }
 
-  public function index(Request $request){
+  public function index($activos = 1, Request $request){
+    $activos = (int) $activos;
     $data = [
-      "activos" => 1,
-      "users" => User::all(),
+      "activos" => $activos,
     ];
+    if ($request->ajax()){
+      $data = $activos ? User::query() : User::onlyTrashed();
+      return
+        Datatables::eloquent($data)
+          ->addColumn('action', function($user){
+            $btn =
+              '<a href="'.route('usuarios.edit', ['usuario'=>$user->id]).'" class="btn btn-primary btn-sm btn-hover">Editar</a>'.
+              '<button type="button" class="btn btn-status btn-light btn-sm btn-hover" title="'.($user->trashed() ? 'Restaurar' : 'Desactivar').'" data-id="'.$user->id.'" data-name="'.$user->name.'">'.
+                '<i class="fa fa-fw fa-'.($user->trashed() ? 'arrow-up' : 'ban').'"></i>'.
+              '</button>';
+            return $btn;
+          })
+          ->setRowClass(function ($user) {
+            return $user->trashed() ? 'table-warning' : '';
+          })
+          ->make(true);
+    }
     return view('admin.usuarios', $data);
-  }
-
-
-  public function inactivos(){
-    $data = [
-      "activos" => 0,
-      "users" => User::onlyTrashed()->get(),
-    ];
-    return view('admin.usuarios', $data);
-  }
+  }// /index
 
 
   public function destroy(Request $request, $id){
