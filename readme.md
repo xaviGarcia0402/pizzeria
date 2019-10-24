@@ -7,6 +7,7 @@
 * Módulo de notas (Vue) solo accesible con rol "notas"
 * Perfil del usuario: datos, foto y contraseña
 * Logs: registro de sucesos
+* Uso de DataTables
 
 ## Requerimientos
 * PHP >= 7.2.0
@@ -49,9 +50,12 @@
 * https://laraveldaily.com/save-users-last-login-time-ip-address/
 * https://www.5balloons.info/upload-profile-picture-avatar-laravel-5-authentication/
 * https://bluuweb.github.io/tutorial-laravel/vue/#componente-con-vue-js
+* https://www.itsolutionstuff.com/post/laravel-58-datatables-tutorialexample.html
+* https://bloggie.io/@jctan/laravel-datatable-installation
 
 ### Librerías externas usadas
 * https://github.com/spatie/laravel-activitylog
+* https://github.com/yajra/laravel-datatables
 
 ---
 
@@ -79,4 +83,8 @@ $ php artisan make:controller ProfileController
 $ php artisan storage:link
 $ php artisan make:model Nota -m
 $ php artisan make:controller NotaController --resource
+$ composer require yajra/laravel-datatables-oracle:^9.0
+$ php artisan vendor:publish --tag=datatables
+$ npm install --save datatables.net-bs4
+$ npm run dev
 ```

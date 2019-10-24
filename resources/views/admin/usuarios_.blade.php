@@ -30,43 +30,39 @@
           Usuarios
         </div><!-- /.card-header -->
 
-        <div class="card-body p-1">
-          <table class="data-table table table-hover table-striped table-sm mb-0" style="width: 100%;">
-            <thead>
-              <tr>
-                <td>Usuario</td>
-                <td>Email</td>
-                <td class="text-center">Roles</td>
-                <td></td>
+        <table class="table table-hover table-striped table-sm mb-0">
+          <thead>
+            <tr>
+              <td>Usuario</td>
+              <td>Email</td>
+              <td class="text-center">Roles</td>
+              <td></td>
+            </tr>
+          </thead>
+          <tbody>
+            @foreach($users as $user)
+              <tr class="{{ $user->trashed() ? 'table-warning' : '' }}">
+                <td class="align-middle">
+                  <img class="border rounded" src="{{ asset('storage/avatars/'.$user->avatar) }}" style="width: 30px" /> 
+                  {{ $user->name }}
+                </td>
+                <td class="align-middle">{{ $user->email }}</td>
+                <td class="align-middle" style="width: 80px;">
+                  <a href="{{ route('roles.usuario', ['usuario'=>$user->id]) }}" class="btn btn-outline-secondary btn-sm btn-block border-0">
+                    {{ $user->roles->count() }}
+                    {{ $user->roles->count() == 1 ? 'Rol' : 'Roles' }}
+                  </a>
+                </td>
+                <td style="width: 120px;">
+                  <a href="{{ route('usuarios.edit', ['usuario'=>$user->id]) }}" class="btn btn-primary btn-sm btn-hover">Editar</a>
+                  <button type="button" class="btn btn-status btn-light btn-sm btn-hover" title="{{ $user->trashed() ? 'Restaurar' : 'Desactivar' }}" data-toggle="tooltip" data-id="{{ $user->id }}" data-name="{{ $user->name }}">
+                    <i class="fa fa-fw fa-{{ $user->trashed() ? 'arrow-up' : 'ban' }}"></i>
+                  </button>
+                </td>
               </tr>
-            </thead>
-            <tbody>
-              {{--
-              @foreach($users as $user)
-                <tr class="{{ $user->trashed() ? 'table-warning' : '' }}">
-                  <td class="align-middle">
-                    <img class="border rounded" src="{{ asset('storage/avatars/'.$user->avatar) }}" style="width: 30px" />
-                    {{ $user->name }}
-                  </td>
-                  <td class="align-middle">{{ $user->email }}</td>
-                  <td class="align-middle" style="width: 80px;">
-                    <a href="{{ route('roles.usuario', ['usuario'=>$user->id]) }}" class="btn btn-outline-secondary btn-sm btn-block border-0">
-                      {{ $user->roles->count() }}
-                      {{ $user->roles->count() == 1 ? 'Rol' : 'Roles' }}
-                    </a>
-                  </td>
-                  <td style="width: 120px;">
-                    <a href="{{ route('usuarios.edit', ['usuario'=>$user->id]) }}" class="btn btn-primary btn-sm btn-hover">Editar</a>
-                    <button type="button" class="btn btn-status btn-light btn-sm btn-hover" title="{{ $user->trashed() ? 'Restaurar' : 'Desactivar' }}" data-toggle="tooltip" data-id="{{ $user->id }}" data-name="{{ $user->name }}">
-                      <i class="fa fa-fw fa-{{ $user->trashed() ? 'arrow-up' : 'ban' }}"></i>
-                    </button>
-                  </td>
-                </tr>
-              @endforeach
-              --}}
-            </tbody>
-          </table>
-        </div><!-- /.card-body -->
+            @endforeach
+          </tbody>
+        </table>
 
         <div class="overlay" style="display: none;"><i class="fa fa-2x fa-refresh fa-spin"></i></div>
 
@@ -82,26 +78,13 @@
   <script type="text/javascript">
 
     window.addEventListener('load', function(){
-
-      var table = $('.data-table').DataTable({
-        processing: true,
-        serverSide: true,
-        ajax: "{{ route('usuarios.index', ["activos" => $activos]) }}",
-        columns: [
-          {data: 'name', name: 'name'},
-          {data: 'email', name: 'email'},
-          {data: 'action', name: 'action', orderable: false, searchable: false, "width": "100px"},
-        ],
-      });// /DataTable
-
-      $(document).on("click", "button.btn-status", function(e){
+      $('[data-toggle="tooltip"]').tooltip({placement:'bottom'});
+      $('button.btn-status').click(function(){
         statusToggle(this);
       });
-
-    });// /window load
+    });
 
     function statusToggle(target){
-      $('[data-toggle="tooltip"]').tooltip('hide');
       if(! confirm('¿Seguro que deseas {{ $activos ? 'desactivar' : 'restaurar' }} al usuario '+$(target).data('name')+'?')){ return; }
       $.ajax({
   	    type: "{{ $activos ? 'DELETE' : 'POST' }}",
@@ -119,7 +102,7 @@
   				x = $.trim(x);
           $("#card-usuarios .overlay").hide();
   				if(x.substr(0,2) == "ok"){
-            $('.data-table').DataTable().ajax.reload(null, false);
+            window.location.reload();
   	      }
   	      else{
             alert(x);

@@ -19,9 +19,10 @@ Route::group(['prefix' => 'profile', 'middleware' => ['auth']], function(){
 
 Route::group(['prefix' => 'admin', 'middleware' => ['auth','role:admin']], function(){
   Route::resource('usuarios', 'Admin\UsuariosController')->except([
-    'show',
+    'index', 'show',
   ]);
-  Route::get('usuarios/inactivos', 'Admin\UsuariosController@inactivos')->name('usuarios.inactivos');
+  Route::get('usuarios/{activos?}', 'Admin\UsuariosController@index')->name('usuarios.index');
+  Route::redirect('usuarios/inactivos', '/usuarios/0')->name('usuarios.inactivos');
   Route::post('usuarios/{usuario}', 'Admin\UsuariosController@restore')->name('usuarios.restore');
 
   Route::resource('roles', 'Admin\RolesController')->except([
