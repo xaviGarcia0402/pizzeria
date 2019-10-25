@@ -64,7 +64,10 @@
       var table = $('.data-table').DataTable({
         processing: true,
         serverSide: true,
-        ajax: "{{ route('logs.index') }}",
+        ajax: {
+          url: "{{ route('logs.index') }}",
+          "type": "POST",
+        },
         order: [[0, 'desc']],
         columns: [
           {data: 'created_at', name: 'created_at', "width": "140px"},

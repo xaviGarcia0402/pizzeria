@@ -70,7 +70,7 @@
                     <a class="dropdown-item" href="{{ route('usuarios.index') }}"><i class="fa fa-fw fa-user"></i> Usuarios</a>
                     <a class="dropdown-item" href="{{ route('roles.index') }}"><i class="fa fa-fw fa-key"></i> Roles de usuarios</a>
                     <div class="dropdown-divider"></div>
-                    <a class="dropdown-item" href="{{ route('logs.index') }}"><i class="fa fa-fw fa-list-alt"></i> Logs</a>
+                    <a class="dropdown-item" href="{{ route('logs') }}"><i class="fa fa-fw fa-list-alt"></i> Logs</a>
                   </div>
                 </li>
               @endif

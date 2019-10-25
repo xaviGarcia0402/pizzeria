@@ -33,5 +33,6 @@ Route::group(['prefix' => 'admin', 'middleware' => ['auth','role:admin']], funct
   Route::delete('roles/usuario', 'Admin\RolesController@quitarRolAUsuario')->name('roles.quitarRolAUsuario');
   Route::get('roles/usuariosConRol/{role}', 'Admin\RolesController@usuariosConRol')->where('role', '[0-9]+')->name('roles.usuariosConRol');
 
-  Route::get('logs', 'Admin\LogsController@index')->name('logs.index');
+  Route::view('logs', 'admin.logs')->name('logs');
+  Route::post('logs', 'Admin\LogsController@index')->name('logs.index');
 });// /group prefix=>admin
