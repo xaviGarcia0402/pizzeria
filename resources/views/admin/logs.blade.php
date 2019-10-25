@@ -48,8 +48,6 @@
 
       </div><!-- /.card -->
 
-      {{-- $logs->onEachSide(2)->links() --}}
-
     </div><!-- /.col -->
   </div><!-- /.row -->
 
