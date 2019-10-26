@@ -82,7 +82,7 @@
             </div><!-- /#foto-tab -->
 
             <div id="pass" class="tab-pane fade" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-              <h2>Contraseña</h2>
+              <h2>Cambiar contraseña</h2>
               <hr>
               <form action="{{ route('profile.pass') }}" method="POST">
                 @csrf
